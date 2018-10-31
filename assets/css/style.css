@@ -24,10 +24,30 @@
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {...}
-
-
+.info-icon{
+	object-fit: contain;
+	height: 50px;
+	width: 50px;
+}
+.title{
+	text-decoration: underline;
+	font-weight: 300 !important;
+}
 .card-img-top{
-		min-height: 250px !important;
-		max-height: 250px !important;
-		object-fit: cover !important;
+		min-height: 150px !important;
+		max-height: 150px !important;
+		object-fit: contain !important;
 	}
+
+	.slick-prev:before,
+.slick-next:before {
+  color: #2196F3;
+}
+	   /* the slides */
+  .slick-slide {
+    margin: 0 10px;
+  }
+  /* the parent */
+  .slick-list {
+    margin: 0 -10px;
+  }

@@ -6,7 +6,23 @@
 			Sale of 50% off everything shop sitewide sale
 		</div>
 		<div class="col-md-3 text-center d-md-block d-none">
-			<a href="">My Account</a>
+			<a href="" class="btn btn-sm btn-primary">Sign In</a>
+			<a href="" class="btn btn-sm btn-secondary">Register</a>
+			<!-- Split button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-danger btn-sm">My Account</button>
+  <button type="button" class="btn btn-danger dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false">
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Separated link</a>
+  </div>
+</div>
 		</div>
 	</div>
 </div>
@@ -29,8 +45,8 @@
 		</div>
 	</form>
 	<ul class="list-inline d-none d-md-block d-lg-block">
-		<li class="list-inline-item">Contact Us</li>
-		<li class="list-inline-item">Cart</li>
+		<li class="list-inline-item"><i class="fas fa-headset"></i> Contact Us</li>
+		<li class="list-inline-item"><i class="fas fa-shopping-cart"></i> Cart</li>
 	</ul>
 </div>
 <!-- Navbar -->
@@ -52,16 +68,22 @@
 					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Features</a>
+					<a class="nav-link" href="#">Catalogs</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Pricing</a>
+					<a class="nav-link" href="#">About</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link disabled" href="#">Disabled</a>
+					<a class="nav-link" href="#">Developer Profile</a>
 				</li>
 				<li class="nav-item d-none mobile-link">
 					<a href="" class="nav-link">Contact Us</a>
+				</li>
+				<li class="nav-item d-none mobile-link">
+					<a href="" class="nav-link">Login</a>
+				</li>
+				<li class="nav-item d-none mobile-link">
+					<a href="" class="nav-link">Register</a>
 				</li>
 				<li class="nav-item d-none mobile-link">
 					<a href="" class="nav-link">My Account</a>

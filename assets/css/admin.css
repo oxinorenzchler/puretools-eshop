@@ -1,0 +1,11 @@
+/*CSS Reset*/
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.admin-icon{
+		min-height: 150px !important;
+		max-height: 150px !important;
+		object-fit: contain !important;
+	}
