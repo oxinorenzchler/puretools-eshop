@@ -54,19 +54,167 @@ class Query
 	 */
 	public function all(){
 		$sql = "SELECT * FROM ".$this->model();
-		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->fetch();
-		return $result;
+		
+		$result = $this->pdo->query($sql) or die("Failed");
+
+		$data = [];
+
+		while ($product = $result->fetch()) {
+			$data[] = $product;
+		}
+
+		if($data != NULL){
+			return json_encode($data);
+		}
+	}
+
+	/*
+	 *Get by ID
+	 *
+	 *@param HTTP Request
+	 *@return HTTP Response
+	 */
+	public function find($id){
+
+		$sql = "SELECT * FROM ".$this->model()." WHERE id=$id";
+
+		$result = $this->pdo->query($sql);
+
+		$data = [];
+
+		while ($r = $result->fetch()) {
+			$data[] = $r;
+		}
+
+		if($data != NULL){
+			return json_encode($data);
+		}
+
 	}
 
 	/*
 	 *Insert
+	 *
+	 *@param HTTP Request
+	 *@return void
 	 */
-	public function insert(array $item){
-		var_dump($item);
+	public function insert(array $product){
+		
+		$column = implode(', ', array_keys($product));
+
+		$data = implode(', ', $product);
+		
+		$sql = "INSERT INTO ".$this->model()." ($column) VALUES ($data)";
+
+
+		//Insert data
+		try {
+
+			$this->pdo->exec($sql);
+
+		} catch (\PDOException $e) {
+
+			throw new \PDOException($e->getMessage(), (int)$e->getCode());
+
+		}
+		
 	}
 
+	/*
+	 *Update
+	 *
+	 *@param HTTP Request
+	 *@return void
+	 */
+	public function update(array $product, $id){
+
+
+		foreach ($product as $column => $data) {
+
+			$sql = "UPDATE ".$this->model()." SET $column=$data WHERE id=$id";
+
+			try {
+
+				$this->pdo->exec($sql);
+
+			} catch (\PDOException $e) {
+
+				throw new \PDOException($e->getMessage(), (int)$e->getCode());
+
+			}
+			
+		}
+
+	}
+
+	/*
+	 *Destroy
+	 *
+	 *@param HTTP Request
+	 *@return void
+	 */
+	public function destroy($id){
+		$sql = "DELETE FROM ".$this->model()." WHERE id=$id";
+
+		try {
+
+			$this->pdo->exec($sql);
+
+			echo "Item deleted.";
+
+		} catch (\PDOException $e) {
+
+			throw new \PDOException($e->getMessage(), (int)$e->getCode());
+
+		}
+
+	}
+
+	//Validate
+	public function validate($request, array $rules){
+			
+		// var_dump($request);
+
+		// //Input
+		// $input = array_keys($rules);
+
+		// $rule = "";
+
+		// //Tama Checkpoint
+		// foreach ($input as $value) {
+
+
+		// }
+
+
+
+		// $rule = implode('', $rules);
+
+		// $rule = preg_replace('/\|/', ' ', $rule);
+		// $rule =  explode(" ", $rule);
+
+		// var_dump($rule);
+		
+
+
+		// $_SESSION['errors'] = array();
+
+		// foreach ($request as $input => $value) {
+		// 	if(empty($value)){
+		// 		$_SESSION['errors'][$input] = array(
+		// 			$input." is required.",
+		// 		);
+		// 	}
+		// }
+
+		// $_SESSION['errors'] += $_SESSION['errors'];
+
+		// if(count($_SESSION['errors']) > 0){
+		// 	return $_SESSION['errors'];
+		// }
+
+
+	}
 
 
 }

@@ -1,14 +1,18 @@
+<?php session_start(); ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
 
+<?php foreach ($_SESSION['product'] as $product) { ?>
+
 <div class="container mb-5">
-	<nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
+  <nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
     <ol class="breadcrumb bg-white d-flex justify-content-center">
       <li class="breadcrumb-item active">Home</li>
       <li class="breadcrumb-item active">Products</li>
-      <li class="breadcrumb-item active">Item name</li>
+      <li class="breadcrumb-item active"><?php echo $product->name; ?></li>
     </ol>
   </nav>
+
 
   	<div class="content mb-5 mt-5">
   		<div class="row">
@@ -18,10 +22,9 @@
   				</div>
   			</div>
   			<div class="col-md-6">
-  				<h3>Item name</h3>
-  				<span>$100</span>
-  				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+  				<h3><?php echo $product->name; ?></h3>
+  				<span>&#8369; <?php echo $product->price; ?></span>
+  				<p><?php echo $product->description; ?></p>
   				<form class="mb-3">
   					<input type="number" name="quantity" class="form-control w-50" min="1">
   					<button class="btn btn-danger btn-sm"><i class="fas fa-shopping-cart"></i> Add to cart</button>
@@ -56,6 +59,7 @@
   <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</div>
   
 </div>
+<?php } ?>
 
 <h5 class="h2 mb-3 title text-uppercase"><img src="assets/img/svg/related.png" class="info-icon">Related Products</h5>
 <div class="featured-items">
