@@ -17,26 +17,3 @@ class Product extends Query
 	}
    
 }
-
-// $x = new Product();
-
-// $y = $x->all();
-
-// var_dump($y);
-
-// $item = array(
-// 	// 'name' => '\'Animal\'',
-// 	'category_id' => '\'2\'',
-// 	// 'brand_id' => '\'1\'',
-// 	'price' => '\'100\'',
-// 	'description' => '\'Edited\''
-// );
-
-// $x->insert($item);
-
-// $x->update($item, 6);
-
-// $x->destroy(10);
-
-// $z = $x->find(9);
-// var_dump($z);

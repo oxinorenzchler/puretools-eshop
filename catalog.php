@@ -1,6 +1,5 @@
 <?php session_start(); ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/Product.php'); ?>
-
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
 

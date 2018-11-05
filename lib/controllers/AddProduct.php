@@ -1,49 +1,55 @@
 <?php 
 
 session_start();
+
 include('../Product.php');
 
-// $_SESSION['success'] = "Item added";
-
-// var_dump(array_keys($_POST));
-
-$request = $_POST;
-
-
-
+/*
+ *Insert
+ *
+ *@param HTTP Request
+ *@return HTTP Response
+ */
 $product = new Product();
 
-$rules = array(
-	'price' => 'required|string',
-	'name' => 'required'	
-);
+//Check if request is comming from add product form
+if(isset($_POST['addProductForm'])){
 
-$product->validate($_POST, $rules);
+	//Set rules
+	$rules = array(
+		'price' => ['required','numeric'],
+		'name' => ['required','string'],
+		'category'=> ['required'],
+		'sdescription' => ['string','required'],
+		'description' => ['string','required'],
+		'details' => ['string','required']	
+	);
 
-//Validate
-// foreach ($request as $input => $data) {
+	//Validate
+	$product->validate($_POST, $rules);
 
-// 	if(empty($data)){
-// 		$_SESSION['errors'][] = array(
-// 			'error' => $input.' is required.',
-// 		);
-// 	}
+	//Check if errors exists
+	if(!isset($_SESSION['errors'])){
 
-// }
+		//Assign values
+		$request = array(
 
-// if(is_numeric($_POST['price']) === FALSE){
-// 	$_SESSION['errors'][] = array(
-// 		'error' => 'price must be a number.',
-// 	);
-// }
+			'name' => $_POST['name'],
+			'category_id' => 2,
+			'brand_id' => 2,
+			'description' => $_POST['description'],
+			'price' => $_POST['price'],
 
+		);
 
-// foreach ($_SESSION['errors'] as $key => $value) {
-// 	foreach ($value as $k => $va) {
-// 		echo $va;
-// 	}
-// }
+		//Insert to DB and check if success
+		if($product->insert($request)){
 
-// unset($_SESSION['errors']);
+			$_SESSION['success'] = "Item added";
+			//Redirect
+			header("Location: ".$_SERVER['HTTP_REFERER']."");
 
-// header("Location: http://".$_SERVER['SERVER_NAME']."/techies/add_product.php");
+		}
+
+	}
+}

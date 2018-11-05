@@ -2,6 +2,8 @@
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
 
+<?php if(isset($_SESSION['product'])) { ?>
+
 <?php foreach ($_SESSION['product'] as $product) { ?>
 
 <div class="container mb-5">
@@ -14,39 +16,39 @@
   </nav>
 
 
-  	<div class="content mb-5 mt-5">
-  		<div class="row">
-  			<div class="col-md-6">
-  				<div class="product-featured-image border">
-  					<img src="assets/img/products/printer.jpg" class="img-fluid">
-  				</div>
-  			</div>
-  			<div class="col-md-6">
-  				<h3><?php echo $product->name; ?></h3>
-  				<span>&#8369; <?php echo $product->price; ?></span>
-  				<p><?php echo $product->description; ?></p>
-  				<form class="mb-3">
-  					<input type="number" name="quantity" class="form-control w-50" min="1">
-  					<button class="btn btn-danger btn-sm"><i class="fas fa-shopping-cart"></i> Add to cart</button>
-  				</form>
-  				<ul class="list-unstyled pr-2 pl-2">
-  					<li class="mb-2">
-  						<img src="assets/img/svg/shield.png" height="30" width="30">
-  						Secured transactions.
-  					</li>
-  					<li class="mb-2">
-  						<img src="assets/img/svg/van.png" height="30" width="30">
-  						Free Delivery
-  					</li>
-  					<li class="mb-2">
-  						<img src="assets/img/svg/return.png" height="30" width="30">
-  						Replacement & Refund is available for this item.
-  					</li>
-  				</ul>
-  			</div>
-  		</div>
-  	</div>
-  	<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <div class="content mb-5 mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="product-featured-image border">
+            <img src="assets/img/products/printer.jpg" class="img-fluid">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3><?php echo $product->name; ?></h3>
+          <span>&#8369; <?php echo $product->price; ?></span>
+          <p><?php echo $product->description; ?></p>
+          <form class="mb-3">
+            <input type="number" name="quantity" class="form-control w-50" min="1">
+            <button class="btn btn-danger btn-sm"><i class="fas fa-shopping-cart"></i> Add to cart</button>
+          </form>
+          <ul class="list-unstyled pr-2 pl-2">
+            <li class="mb-2">
+              <img src="assets/img/svg/shield.png" height="30" width="30">
+              Secured transactions.
+            </li>
+            <li class="mb-2">
+              <img src="assets/img/svg/van.png" height="30" width="30">
+              Free Delivery
+            </li>
+            <li class="mb-2">
+              <img src="assets/img/svg/return.png" height="30" width="30">
+              Replacement & Refund is available for this item.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
   </li>
@@ -61,6 +63,10 @@
 </div>
 <?php } ?>
 
+<?php }else {
+    echo "<input type='hidden' id='redirect' value='redirect'>";
+  }
+?>
 <h5 class="h2 mb-3 title text-uppercase"><img src="assets/img/svg/related.png" class="info-icon">Related Products</h5>
 <div class="featured-items">
 
@@ -176,4 +182,16 @@
   </div>
 </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var redirect = $('#redirect').val();
+    var $protocol = window.location.protocol
+    var $location = window.location.host;
+    if(redirect != undefined){
+      // window.location = $protocol+"//"+$location+"/index.php";
+      window.location = "index.php";
+    }
+  });
+</script>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>

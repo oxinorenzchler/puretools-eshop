@@ -59,8 +59,8 @@ class Query
 
 		$data = [];
 
-		while ($product = $result->fetch()) {
-			$data[] = $product;
+		while ($request = $result->fetch()) {
+			$data[] = $request;
 		}
 
 		if($data != NULL){
@@ -96,22 +96,23 @@ class Query
 	 *Insert
 	 *
 	 *@param HTTP Request
-	 *@return void
+	 *@return boolean
 	 */
-	public function insert(array $product){
-		
-		$column = implode(', ', array_keys($product));
+	public function insert(array $request){
 
-		$data = implode(', ', $product);
-		
-		$sql = "INSERT INTO ".$this->model()." ($column) VALUES ($data)";
+		$request = $this->escapeHTML($request);
 
+		$column = implode(', ', array_keys($request));
+
+		$data = implode("', '", $request);
+
+		$sql = "INSERT INTO ".$this->model()." ($column) VALUES ('$data')";
 
 		//Insert data
 		try {
 
 			$this->pdo->exec($sql);
-
+			return true;
 		} catch (\PDOException $e) {
 
 			throw new \PDOException($e->getMessage(), (int)$e->getCode());
@@ -126,10 +127,10 @@ class Query
 	 *@param HTTP Request
 	 *@return void
 	 */
-	public function update(array $product, $id){
+	public function update(array $request, $id){
 
 
-		foreach ($product as $column => $data) {
+		foreach ($request as $column => $data) {
 
 			$sql = "UPDATE ".$this->model()." SET $column=$data WHERE id=$id";
 
@@ -170,52 +171,84 @@ class Query
 
 	}
 
+
+	/*
+	 *Validate request
+	 *
+	 *@param HTTP Request and array Rules
+	 *@return HTTP Response	 
+	 */
 	//Validate
 	public function validate($request, array $rules){
-			
-		// var_dump($request);
 
-		// //Input
-		// $input = array_keys($rules);
-
-		// $rule = "";
-
-		// //Tama Checkpoint
-		// foreach ($input as $value) {
-
-
-		// }
-
-
-
-		// $rule = implode('', $rules);
-
-		// $rule = preg_replace('/\|/', ' ', $rule);
-		// $rule =  explode(" ", $rule);
-
-		// var_dump($rule);
 		
+		//Get indexes of $request and $rules then merge them into a single array
+		$input = array_keys($rules);
+		$req = array_keys($request);
+		$grouped = array_intersect($input, $req);
 
+		//Declare variables
+		$_SESSION['errors'] = [];
+		
+		/*Loop through the grouped arrays and use it to loop through the request array and filter the values of that array.*/ 
+		foreach ($grouped as $value) {
 
-		// $_SESSION['errors'] = array();
+			foreach($rules[$value] as $k => $v) {
+				
+				switch ($v) {
 
-		// foreach ($request as $input => $value) {
-		// 	if(empty($value)){
-		// 		$_SESSION['errors'][$input] = array(
-		// 			$input." is required.",
-		// 		);
-		// 	}
-		// }
+					case 'required':
+					if($request[$value] === ''){
+						$_SESSION['errors'][] = $value . ' is required.';
+					}
+					break;
 
-		// $_SESSION['errors'] += $_SESSION['errors'];
+					case 'string':
+					if(!is_string($request[$value])){
+						$_SESSION['errors'][] = $value . ' must be a string.';
+					}
+					break;
 
-		// if(count($_SESSION['errors']) > 0){
-		// 	return $_SESSION['errors'];
-		// }
+					case 'numeric':
+						if(!is_numeric($request[$value])){
+						$_SESSION['errors'][] = $value . ' must be a number';
+						}
+					break;
+
+					case 'min':
+						if(is_string($request[$value]) && $request[$value] < 8){
+						$_SESSION['errors'][] = $value . ' must be at least 8 character';
+						}
+					break;
+
+					default:
+						throw new Exception("Invalid rule.", 1);
+					break;
+				}
+
+			}
+		}
+		
+		//Check for errors then redirect to previous page
+		if(count($_SESSION['errors']) > 0){
+			header("Location: ".$_SERVER['HTTP_REFERER']."");
+		}else{
+			unset($_SESSION['errors']);
+		}
 
 
 	}
 
+	public function escapeHTML(array $request){
+		//Escape html characters
+		$req = [];
+
+		foreach ($request as $key => $value) {
+			$req[$key] = htmlspecialchars($value);
+		}
+
+		return $req;
+	}
 
 }
 

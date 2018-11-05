@@ -11,6 +11,16 @@
 					<?php echo $_SESSION['success']; ?>
 				</div>
 				<?php unset($_SESSION['success']); }?>
+
+				<?php if(isset($_SESSION['errors'])) { ?>
+					<div class="alert alert-danger" role="alert">
+						<?php foreach($_SESSION['errors'] as $value) { ?>
+							<ul class="list-unstyled">
+								<li><?php echo $value ?></li>
+							</ul>
+						<?php } ?>
+					</div>
+				<?php } ?>
 				<h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
 				<form action="lib/controllers/AddProduct.php" method="POST" enctype="multipart/form-data">
 					<!-- Name and category -->
@@ -34,7 +44,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">$</span>
 								</div>
-								<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="price">
+								<input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" name="price">
 								<div class="input-group-append">
 									<span class="input-group-text">.00</span>
 								</div>
@@ -84,7 +94,7 @@
 					</div>
 
 					<div class="input-group">
-						<button class="btn btn-primary w-100">Add</button>
+						<button class="btn btn-primary w-100"  name="addProductForm">Add</button>
 					</div>
 				</form>
 			</div>
