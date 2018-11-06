@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Dashboard
+        <a class="nav-link" href="dashboard.php">Dashboard
           <span class="sr-only">(current)</span>
         </a>
       </li>
@@ -17,7 +17,7 @@
         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">Users</a>
           <a class="dropdown-item" href="#">Categories</a>
-          <a class="dropdown-item" href="#">Products</a>
+          <a class="dropdown-item" href="products.php">Products</a>
           <a class="dropdown-item" href="#">Orders</a>
           <a class="dropdown-item" href="#">Payments</a>
         </div>

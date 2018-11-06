@@ -3,16 +3,16 @@
 include('Query.php');
 
 /*
- *Product Class
+ *Category Class
  */
-class Product extends Query
+class Category extends Query
 {	
 
 	public function getAll(){
 		return $this->all();
 	}
 
-	public function addProduct(array $product){
+	public function addCategory(array $product){
 		$this->insert($product);
 	}
 

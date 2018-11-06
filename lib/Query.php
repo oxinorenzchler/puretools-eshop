@@ -1,5 +1,7 @@
 <?php
 
+include($_SERVER['DOCUMENT_ROOT'].'/techies/vendor/plural-master/lib/Plural.php');
+
 /*
  *PDO Queries
  */
@@ -15,6 +17,9 @@ class Query
 	private $dsn;
 	private $options;
 	private $pdo;
+	private $deleted_at;
+	private $updated_at;
+	private $created_at;
 
 
 	/*
@@ -46,14 +51,14 @@ class Query
 	 *Get model class name
 	 */
 	public function model(){
-		return strtolower(get_called_class()).'s';
+		return strtolower(Plural::pluralize(get_called_class()));
 	}
 
 	/*
 	 *Select all
 	 */
 	public function all(){
-		$sql = "SELECT * FROM ".$this->model();
+		$sql = "SELECT * FROM ".$this->model()." WHERE deleted_at IS NULL";
 		
 		$result = $this->pdo->query($sql) or die("Failed");
 
@@ -100,13 +105,17 @@ class Query
 	 */
 	public function insert(array $request){
 
+		$this->created_at = date('Y-m-d H:i:s');
+		$this->updated_at = $this->created_at;
+
 		$request = $this->escapeHTML($request);
 
 		$column = implode(', ', array_keys($request));
 
 		$data = implode("', '", $request);
 
-		$sql = "INSERT INTO ".$this->model()." ($column) VALUES ('$data')";
+		$sql = "INSERT INTO ".$this->model()." ($column,
+		created_at,updated_at) VALUES ('$data','$this->created_at','$this->updated_at')";
 
 		//Insert data
 		try {
@@ -125,18 +134,24 @@ class Query
 	 *Update
 	 *
 	 *@param HTTP Request
-	 *@return void
+	 *@return boolean
 	 */
 	public function update(array $request, $id){
 
+		$this->updated_at = date('Y-m-d H:i:s');
+
+		$request = $this->escapeHTML($request);
 
 		foreach ($request as $column => $data) {
 
-			$sql = "UPDATE ".$this->model()." SET $column=$data WHERE id=$id";
+			$sql = "UPDATE ".$this->model()." SET $column='$data', updated_at='$this->updated_at' WHERE id=$id";
+
+			// var_dump($sql);
 
 			try {
 
 				$this->pdo->exec($sql);
+				return true;
 
 			} catch (\PDOException $e) {
 
@@ -152,16 +167,19 @@ class Query
 	 *Destroy
 	 *
 	 *@param HTTP Request
-	 *@return void
+	 *@return boolean
 	 */
 	public function destroy($id){
-		$sql = "DELETE FROM ".$this->model()." WHERE id=$id";
+
+		$this->deleted_at = date('Y-m-d H:i:s');
+
+		$sql = "UPDATE ".$this->model()." SET deleted_at='$this->deleted_at' WHERE id=$id";
 
 		try {
 
 			$this->pdo->exec($sql);
 
-			echo "Item deleted.";
+			return true;
 
 		} catch (\PDOException $e) {
 

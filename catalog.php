@@ -1,7 +1,7 @@
-<?php session_start(); ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/Product.php'); ?>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/ProductController.php'); ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
+<?php unset($_SESSION['productID']); ?>
 
 <div class="container mb-5">
 	<nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
@@ -27,12 +27,9 @@
    <div class="col-md-9 col-lg-9">
 
     <div class="row">
-    <?php $products = new Product(); ?>
-    <?php foreach (json_decode($products->all()) as $value) { ?>
+    <?php foreach (json_decode(getAllProducts()) as $product) { ?>
      <div class="col-md-6 col-lg-4 mb-3">
        <div class="card">
-
-
         <!--Zoom effect-->
         <div class="view overlay zoom p-2">
           <img src="assets/img/products/printer.jpg" class="img-fluid card-img-top" alt="smaple image">
@@ -42,18 +39,17 @@
         <div class="card-body text-center">
 
           <!-- Title -->
-          <h6 class="card-title"><a><?php echo $value->name; ?></a></h6>
+          <h6 class="card-title"><a><?php echo $product->name; ?></a></h6>
           <!-- Text -->
           <p class="card-text m-0 blue-text">&#8369;
-          <?php echo $value->price; ?></p>
+          <?php echo $product->price; ?></p>
           <!-- Button -->
-          <form action="lib/controllers/GetProduct.php" method="GET">
-            <input type="text" name="id" value=<?php echo $value->id; ?> >
-            <button class="btn btn-primary btn-sm w-100">View</button>
+          <form action="lib/controllers/ProductController.php" method="GET">
+            <input type="text" name="id" value=<?php echo $product->id; ?> >
+            <button class="btn btn-primary btn-sm w-100" name="getProductForm">View</button>
           </form>
           <a href="#" class="btn btn-sm btn-danger w-100"><i class="fas fa-shopping-cart"></i></a>
         </div>
-
       </div>
     </div>
     <?php } ?>

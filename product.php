@@ -1,10 +1,11 @@
 <?php session_start(); ?>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/Product.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
+<?php if(isset($_SESSION['productID'])) { ?>
+<?php $products = new Product(); ?>
 
-<?php if(isset($_SESSION['product'])) { ?>
-
-<?php foreach ($_SESSION['product'] as $product) { ?>
+<?php foreach(json_decode($products->getProduct($_SESSION['productID'])) as $product) { ?>
 
 <div class="container mb-5">
   <nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
@@ -14,7 +15,6 @@
       <li class="breadcrumb-item active"><?php echo $product->name; ?></li>
     </ol>
   </nav>
-
 
     <div class="content mb-5 mt-5">
       <div class="row">
@@ -63,10 +63,6 @@
 </div>
 <?php } ?>
 
-<?php }else {
-    echo "<input type='hidden' id='redirect' value='redirect'>";
-  }
-?>
 <h5 class="h2 mb-3 title text-uppercase"><img src="assets/img/svg/related.png" class="info-icon">Related Products</h5>
 <div class="featured-items">
 
@@ -183,15 +179,24 @@
 </div>
 </div>
 
+<?php }else {
+   echo "
+            <div class='container'>
+            <img class='img-fluid d-block mx-auto' src='assets/img/404.png' alt='Page not found.'>
+            </div>
+          ";
+
+  }
+?>
 <script type="text/javascript">
   $(document).ready(function(){
     var redirect = $('#redirect').val();
     var $protocol = window.location.protocol
     var $location = window.location.host;
-    if(redirect != undefined){
-      // window.location = $protocol+"//"+$location+"/index.php";
-      window.location = "index.php";
-    }
+    // if(redirect != undefined){
+    //   // window.location = $protocol+"//"+$location+"/index.php";
+    //   window.location = "index.php";
+    // }
   });
 </script>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>

@@ -22,7 +22,7 @@
 					</div>
 				<?php } ?>
 				<h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
-				<form action="lib/controllers/AddProduct.php" method="POST" enctype="multipart/form-data">
+				<form action="lib/controllers/ProductController.php" method="POST" enctype="multipart/form-data">
 					<!-- Name and category -->
 					<div class="form-row">
 						<div class="col-md-6 mb-3">
