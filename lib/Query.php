@@ -106,6 +106,7 @@ class Query
 	public function insert(array $request){
 
 		$this->created_at = date('Y-m-d H:i:s');
+
 		$this->updated_at = $this->created_at;
 
 		$request = $this->escapeHTML($request);
@@ -122,6 +123,7 @@ class Query
 
 			$this->pdo->exec($sql);
 			return true;
+
 		} catch (\PDOException $e) {
 
 			throw new \PDOException($e->getMessage(), (int)$e->getCode());
@@ -145,21 +147,12 @@ class Query
 		foreach ($request as $column => $data) {
 
 			$sql = "UPDATE ".$this->model()." SET $column='$data', updated_at='$this->updated_at' WHERE id=$id";
+			echo $sql;
+			$this->pdo->exec($sql);
 
-			// var_dump($sql);
-
-			try {
-
-				$this->pdo->exec($sql);
-				return true;
-
-			} catch (\PDOException $e) {
-
-				throw new \PDOException($e->getMessage(), (int)$e->getCode());
-
-			}
-			
 		}
+
+		return true;
 
 	}
 
@@ -228,19 +221,19 @@ class Query
 					break;
 
 					case 'numeric':
-						if(!is_numeric($request[$value])){
+					if(!is_numeric($request[$value])){
 						$_SESSION['errors'][] = $value . ' must be a number';
-						}
+					}
 					break;
 
 					case 'min':
-						if(is_string($request[$value]) && $request[$value] < 8){
+					if(is_string($request[$value]) && $request[$value] < 8){
 						$_SESSION['errors'][] = $value . ' must be at least 8 character';
-						}
+					}
 					break;
 
 					default:
-						throw new Exception("Invalid rule.", 1);
+					throw new Exception("Invalid rule.", 1);
 					break;
 				}
 

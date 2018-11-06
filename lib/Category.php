@@ -1,6 +1,6 @@
 <?php
 
-include('Query.php');
+require_once('Query.php');
 
 /*
  *Category Class
@@ -13,18 +13,18 @@ class Category extends Query
 	}
 
 	public function addCategory(array $product){
-		$this->insert($product);
+		return $this->insert($product);
 	}
 
 	public function editProduct(array $product, $id){
 		$this->update($product, $id);
 	}
 
-	public function deleteProduct($id){
-		$this->destroy($id);
+	public function deleteCategory($id){
+		return 	$this->destroy($id);
 	}
 
-	public function getProduct($id){
+	public function getCategory($id){
 		return $this->find($id);
 	}
    

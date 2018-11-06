@@ -1,32 +1,34 @@
 <?php session_start(); ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/Product.php') ?>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/Category.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_header.php') ?>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_nav.php') ?>
 
 <div class="container" style="min-height: 100vh; height: auto;">
-				<?php if(isset($_SESSION['productID'])) {?>
-	<div class="row mt-5 mb-5">
-		<div class="col-md-6 offset-md-3">
-			<?php if(isset($_SESSION['success'])) { ?>
-				<div class="alert alert-success" role="alert">
-					<?php echo $_SESSION['success']; ?>
-				</div>
-				<?php unset($_SESSION['success']); }?>
-
-				<?php if(isset($_SESSION['errors'])) { ?>
-					<div class="alert alert-danger" role="alert">
-						<?php foreach($_SESSION['errors'] as $value) { ?>
-							<ul class="list-unstyled">
-								<li><?php echo $value ?></li>
-							</ul>
-						<?php } ?>
+	<?php if(isset($_SESSION['productID'])) {?>
+		<div class="row mt-5 mb-5">
+			<div class="col-md-6 offset-md-3">
+				<?php if(isset($_SESSION['success'])) { ?>
+					<div class="alert alert-success" role="alert">
+						<?php echo $_SESSION['success']; ?>
 					</div>
-				<?php } ?>
+					<?php unset($_SESSION['success']); }?>
 
-				<a href="products.php" class="btn btn-warning mb-3"><i class="fas fa-arrow-left"></i> Back</a>
+					<?php if(isset($_SESSION['errors'])) { ?>
+						<div class="alert alert-danger" role="alert">
+							<?php foreach($_SESSION['errors'] as $value) { ?>
+								<ul class="list-unstyled">
+									<li><?php echo $value ?></li>
+								</ul>
+							<?php } ?>
+						</div>
+					<?php } ?>
+
+					<a href="products.php" class="btn btn-warning mb-3"><i class="fas fa-arrow-left"></i> Back</a>
 					<h2><i class="fas fa-plus-circle"></i> Edit Product</h2>
 					<?php $products = new Product(); ?>
+					<?php $categories = new Category(); ?>
 					<?php foreach(json_decode($products->getProduct($_SESSION['productID'])) as $product) { ?>
 						<form action="lib/controllers/ProductController.php" method="POST" enctype="multipart/form-data">
 							<!-- Name and category -->
@@ -36,10 +38,12 @@
 								</div>
 								<div class="col-md-6">
 									<select class="form-control" name="category" >
-										<option value="no">Category</option>
-										<option value="1" selected>Tools</option>
-										<option value="">Office</option>
-										<option>Machines</option>
+										<option value="">--Select category--</option>
+										<?php foreach(json_decode($categories->getAll()) as $category) { ?>
+											<option value=<?php echo $category->id; ?> 
+											<?php echo ($product->category_id === $category->id) ? "selected" : "" ?>
+											><?php echo $category->name; ?></option>
+										<?php } ?>
 									</select>
 								</div>
 							</div>
@@ -102,15 +106,15 @@
 							</div>
 						</form>
 					<?php } ?>
+				</div>
+			</div>	
+		<?php }else{
+			echo "
+			<div class='container'>
+			<img class='img-fluid d-block mx-auto' src='assets/img/404.png' alt='Page not found.'>
 			</div>
-		</div>	
-				<?php }else{
-					echo "
-						<div class='container'>
-						<img class='img-fluid d-block mx-auto' src='assets/img/404.png' alt='Page not found.'>
-						</div>
-					";
-				} ?>
+			";
+		} ?>
 	</div>
 
 	<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_footer.php') ?>

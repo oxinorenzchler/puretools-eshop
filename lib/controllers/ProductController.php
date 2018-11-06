@@ -54,7 +54,7 @@ if(isset($_POST['addProductForm'])){
 	$rules = array(
 		'price' => ['required','numeric'],
 		'name' => ['required','string'],
-		'category'=> ['required'],
+		'category'=> ['required', 'numeric'],
 		'sdescription' => ['string','required'],
 		'description' => ['string','required'],
 		'details' => ['string','required']	
@@ -70,7 +70,7 @@ if(isset($_POST['addProductForm'])){
 		$request = array(
 
 			'name' => $_POST['name'],
-			'category_id' => 2,
+			'category_id' => $_POST['category'],
 			'brand_id' => 2,
 			'description' => $_POST['description'],
 			'price' => $_POST['price'],
@@ -105,7 +105,7 @@ if (isset($_POST['deleteProductForm'])) {
 		header("Location: ".$_SERVER['HTTP_REFERER']."");
 	}else{
 		//Mark deleted and check if success
-		if($product->destroy($_POST['id'])){
+		if($product->deleteProduct($_POST['id'])){
 
 			$_SESSION['success'] = "Item Deleted";
 			//Redirect
@@ -152,7 +152,7 @@ if (isset($_POST['saveEdit'])) {
 	$rules = array(
 		'price' => ['required','numeric'],
 		'name' => ['required','string'],
-		'category'=> ['required'],
+		'category'=> ['required','numeric'],
 		'sdescription' => ['string','required'],
 		'description' => ['string','required'],
 		'details' => ['string','required']	
@@ -169,7 +169,7 @@ if (isset($_POST['saveEdit'])) {
 		$request = array(
 
 			'name' => $_POST['name'],
-			'category_id' => $_POST['category'],
+			'category_id' => (int)$_POST['category'],
 			'brand_id' => 5,
 			'description' => $_POST['description'],
 			'price' => $_POST['price'],
@@ -177,7 +177,7 @@ if (isset($_POST['saveEdit'])) {
 		);
 
 		//Update to DB and check if success
-		if($product->update($request, $id)){
+		if($product->editProduct($request, $id)){
 
 			$_SESSION['success'] = "Item updated.";
 			//Redirect

@@ -29,10 +29,10 @@
                         <td><?php echo $product->description; ?></td>
                         <td><?php echo date('Y-m-d'); ?></td>
                         <td class="d-flex justify-content-center">
-                          <form id="showEditForm" action="lib/controllers/ProductController.php" method="GET">
+                          <form id="showEditForm<?php echo $product->id ?>" action="lib/controllers/ProductController.php" method="GET">
                             <input type="text" name="id" value=<?php echo $product->id; ?> >
                             <input type="hidden" name="showEditForm">
-                            <a onclick="$('#showEditForm').submit()" class="fa fa-edit mr-2"></a>
+                            <a onclick="$('#showEditForm' + <?php echo $product->id ?>).submit()" class="fa fa-edit mr-2"></a>
                         </form>
                         <a class="fa fa-trash"  onclick="deleteProduct(<?php echo $product->id; ?>)"></a>
                     </td>

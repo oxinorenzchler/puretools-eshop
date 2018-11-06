@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/CategoryController.php'); ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_header.php') ?>
 
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_nav.php') ?>
@@ -30,10 +30,10 @@
 						</div>
 						<div class="col-md-6">
 							<select class="form-control" name="category">
-								<option value="no">Category</option>
-								<option value="1">Tools</option>
-								<option>Office</option>
-								<option>Machines</option>
+								<option value="">--Select category--</option>
+								<?php foreach(json_decode(getAllCategories()) as $category ){ ?>
+								<option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
+								<?php } ?>
 							</select>
 						</div>
 					</div>

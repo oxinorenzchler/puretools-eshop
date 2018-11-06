@@ -21,25 +21,28 @@
 						<?php } ?>
 					</div>
 				<?php } ?>
+
+				<?php if(isset($_SESSION['file'])) { ?>
+				<div class="alert alert-danger" role="alert">
+						<?php foreach($_SESSION['file'] as $value) { ?>
+							<ul class="list-unstyled">
+								<li><?php echo $value ?></li>
+							</ul>
+						<?php } ?>
+				</div>
+				<?php } ?>
 				<h2><i class="fas fa-plus-circle"></i> Add New Category</h2>
 				<form action="lib/controllers/CategoryController.php" method="POST" enctype="multipart/form-data">
-						<div class="form-group">
-							<input type="text" name="name" class="form-control" placeholder="Category name....">
-						</div>
+					<div class="form-group">
+						<input type="text" name="name" class="form-control" placeholder="Category name....">
+					</div>
 
-						<div class="form-group">
-														<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-								</div>
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="file">
-									<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-								</div>
-							</div>
-						</div>
-		
-		
+					<div class="form-group">
+
+						<input type="file" class="" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="file">
+					</div>
+
+
 					<div class="form-group">
 						<button class="btn btn-primary w-100"  name="addCategoryForm">Add</button>
 					</div>
@@ -48,5 +51,5 @@
 		</div>	
 	</div>
 
-	<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_footer.php') ?>
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_footer.php') ?>
 
