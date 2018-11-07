@@ -20,86 +20,92 @@
 							</ul>
 						<?php } ?>
 					</div>
-				<?php } ?>
-				<h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
-				<form action="lib/controllers/ProductController.php" method="POST" enctype="multipart/form-data">
-					<!-- Name and category -->
-					<div class="form-row">
-						<div class="col-md-6 mb-3">
-							<input type="text" name="name" class="form-control" placeholder="Product name....">
+					<?php unset($_SESSION['errors']); } ?>
+
+					<?php if(isset($_SESSION['file'])) { ?>
+						<div class="alert alert-danger" role="alert">
+							<?php foreach($_SESSION['file'] as $value) { ?>
+								<ul class="list-unstyled">
+									<li><?php echo $value ?></li>
+								</ul>
+							<?php } ?>
 						</div>
-						<div class="col-md-6">
-							<select class="form-control" name="category">
-								<option value="">--Select category--</option>
-								<?php foreach(json_decode(getAllCategories()) as $category ){ ?>
-								<option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
-								<?php } ?>
-							</select>
-						</div>
-					</div>
-					<!-- Price and file -->
-					<div class="form-row">
-						<div class="col-md-6">
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">$</span>
+						<?php unset($_SESSION['file']); } ?>
+						<h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
+						<form action="lib/controllers/ProductController.php" method="POST" enctype="multipart/form-data">
+							<!-- Name and category -->
+							<div class="form-row">
+								<div class="col-md-6 mb-3">
+									<input type="text" name="name" class="form-control" placeholder="Product name....">
 								</div>
-								<input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" name="price">
-								<div class="input-group-append">
-									<span class="input-group-text">.00</span>
+								<div class="col-md-6">
+									<select class="form-control" name="category">
+										<option value="">--Select category--</option>
+										<?php foreach(json_decode(getAllCategories()) as $category ){ ?>
+											<option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
+										<?php } ?>
+									</select>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+							<!-- Price and file -->
+							<div class="form-row">
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text">$</span>
+										</div>
+										<input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" name="price">
+										<div class="input-group-append">
+											<span class="input-group-text">.00</span>
+										</div>
+									</div>
 								</div>
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="file">
-									<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+								<div class="col-md-6">
+
+
+									<div class="form-group">
+										<input type="file" class="" id="file" aria-describedby="inputGroupFileAddon01" name="file">
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<!-- Short description -->
-					<div class="form-group">
+							<!-- Short description -->
+							<div class="form-group">
 
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Short Description</span>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Short Description</span>
+									</div>
+									<textarea class="form-control" name="sdescription"></textarea>
+								</div>
 							</div>
-							<textarea class="form-control" name="sdescription"></textarea>
-						</div>
-					</div>
-					<!-- Description -->
-					<div class="form-group">
+							<!-- Description -->
+							<div class="form-group">
 
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Description</span>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Description</span>
+									</div>
+									<textarea class="form-control" name="description"></textarea>
+								</div>
 							</div>
-							<textarea class="form-control" name="description"></textarea>
-						</div>
-					</div>
-					<!-- Details -->
-					<div class="form-group">
+							<!-- Details -->
+							<div class="form-group">
 
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Details</span>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Details</span>
+									</div>
+									<textarea class="form-control" name="details"></textarea>
+								</div>
 							</div>
-							<textarea class="form-control" name="details"></textarea>
-						</div>
-					</div>
 
-					<div class="input-group">
-						<button class="btn btn-primary w-100"  name="addProductForm">Add</button>
+							<div class="input-group">
+								<button class="btn btn-primary w-100"  name="addProductForm">Add</button>
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>	
 			</div>
-		</div>	
-	</div>
 
-	<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_footer.php') ?>
+			<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_footer.php') ?>
 

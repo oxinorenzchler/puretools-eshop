@@ -3,6 +3,7 @@
 session_start();
 
 include($_SERVER['DOCUMENT_ROOT'].'/techies/lib/Product.php');
+include($_SERVER['DOCUMENT_ROOT'].'/techies/lib/FileHandler.php');
 
 $product = new Product();
 
@@ -17,30 +18,6 @@ function getAllProducts(){
 }
 
 /*
- *Get product
- *
- *@param HTTP Request
- *@return HTTP Response
- */
-
-if(isset($_GET['getProductForm'])){
-
-	if(isset($_GET['id']) && !empty($_GET['id'])){
-		$id = $_GET['id'];
-		if(empty($id)){
-
-			header("Location: ".$_SERVER['HTTP_REFERER']."");
-
-		}else{
-
-			$_SESSION['productID'] = $id;
-
-			header("Location: http://".$_SERVER['SERVER_NAME']."/techies/product.php");
-		}
-	}
-}
-
-/*
  *Insert
  *
  *@param HTTP Request
@@ -49,6 +26,9 @@ if(isset($_GET['getProductForm'])){
 
 //Check if request is comming from add product form
 if(isset($_POST['addProductForm'])){
+
+	//Set directory for upload
+	$dir = 'assets/img/uploads/products/';
 
 	//Set rules
 	$rules = array(
@@ -63,19 +43,22 @@ if(isset($_POST['addProductForm'])){
 	//Validate
 	$product->validate($_POST, $rules);
 
+	//Assign values
+	$request = array(
+
+		'name' => $_POST['name'],
+		'category_id' => $_POST['category'],
+		'brand_id' => 2,
+		'description' => $_POST['description'],
+		'sdescription' => $_POST['sdescription'],
+		'details' => $_POST['details'],
+		'price' => $_POST['price'],
+		'image' => FileHandler::uploadFile($_FILES, $dir),
+
+	);
+
 	//Check if errors exists
-	if(!isset($_SESSION['errors'])){
-
-		//Assign values
-		$request = array(
-
-			'name' => $_POST['name'],
-			'category_id' => $_POST['category'],
-			'brand_id' => 2,
-			'description' => $_POST['description'],
-			'price' => $_POST['price'],
-
-		);
+	if(!isset($_SESSION['errors']) && !isset($_SESSION['file'])){
 
 		//Insert to DB and check if success
 		if($product->addProduct($request)){
@@ -148,6 +131,9 @@ if(isset($_GET['showEditForm'])){
  *@return HTTP Response
  */
 if (isset($_POST['saveEdit'])) {
+
+	$id = $_POST['id'];
+
 	//Set rules
 	$rules = array(
 		'price' => ['required','numeric'],
@@ -158,23 +144,52 @@ if (isset($_POST['saveEdit'])) {
 		'details' => ['string','required']	
 	);
 
+
 	//Validate
 	$product->validate($_POST, $rules);
 
-	//Check if errors exists
-	if(!isset($_SESSION['errors'])){
 
-		//Assign values
-		$id = $_POST['id'];
+	//Check if there is file
+	if ((int)$_FILES['file']['error'] != 0) {
+
+			//Assign values
+			$request = array(
+
+			'name' => $_POST['name'],
+			'category_id' => (int)$_POST['category'],
+			'brand_id' => 5,
+			'description' => $_POST['description'],
+			'sdescription' => $_POST['sdescription'],
+			'details' => $_POST['details'],
+			'price' => $_POST['price'],
+
+		);
+
+		
+	}else{
+
+
+		//Set directory for upload
+		$dir = 'assets/img/uploads/products/';
+
+			//Assign values
 		$request = array(
 
 			'name' => $_POST['name'],
 			'category_id' => (int)$_POST['category'],
 			'brand_id' => 5,
 			'description' => $_POST['description'],
+			'sdescription' => $_POST['sdescription'],
+			'details' => $_POST['details'],
 			'price' => $_POST['price'],
+			'image' => FileHandler::uploadFile($_FILES, $dir)
 
 		);
+
+	}
+
+	//Check if errors exists
+	if(!isset($_SESSION['errors'])){
 
 		//Update to DB and check if success
 		if($product->editProduct($request, $id)){

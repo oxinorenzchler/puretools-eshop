@@ -23,7 +23,17 @@
 								</ul>
 							<?php } ?>
 						</div>
-					<?php } ?>
+					<?php unset($_SESSION['errors']); } ?>
+
+					<?php if(isset($_SESSION['file'])) { ?>
+				<div class="alert alert-danger" role="alert">
+						<?php foreach($_SESSION['file'] as $value) { ?>
+							<ul class="list-unstyled">
+								<li><?php echo $value ?></li>
+							</ul>
+						<?php } ?>
+				</div>
+				<?php unset($_SESSION['file']); } ?>
 
 					<a href="products.php" class="btn btn-warning mb-3"><i class="fas fa-arrow-left"></i> Back</a>
 					<h2><i class="fas fa-plus-circle"></i> Edit Product</h2>
@@ -31,6 +41,9 @@
 					<?php $categories = new Category(); ?>
 					<?php foreach(json_decode($products->getProduct($_SESSION['productID'])) as $product) { ?>
 						<form action="lib/controllers/ProductController.php" method="POST" enctype="multipart/form-data">
+							<div class="form-group">
+								<img src="<?php echo $product->image ?>" class="img-fluid">
+							</div>
 							<!-- Name and category -->
 							<div class="form-row">
 								<div class="col-md-6 mb-3">
@@ -59,14 +72,9 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-										</div>
-										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="file">
-											<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-										</div>
+									<div class="form-group">
+										<label for="file">Change: </label>
+										<input type="file" class="" id="file" aria-describedby="inputGroupFileAddon01" name="file">
 									</div>
 								</div>
 							</div>
@@ -77,7 +85,9 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text">Short Description</span>
 									</div>
-									<textarea class="form-control" name="sdescription"></textarea>
+									<textarea class="form-control" name="sdescription">
+										<?php echo $product->sdescription; ?>
+									</textarea>
 								</div>
 							</div>
 							<!-- Description -->
@@ -97,7 +107,9 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text">Details</span>
 									</div>
-									<textarea class="form-control" name="details"></textarea>
+									<textarea class="form-control" name="details">
+										<?php echo $product->details; ?>
+									</textarea>
 								</div>
 							</div>
 							<input type="hidden" name="id" value="<?php echo $product->id; ?>">

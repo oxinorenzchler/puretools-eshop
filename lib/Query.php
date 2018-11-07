@@ -2,7 +2,7 @@
 
 include($_SERVER['DOCUMENT_ROOT'].'/techies/vendor/plural-master/lib/Plural.php');
 
-/*
+/**
  *PDO Queries
  */
 class Query
@@ -20,9 +20,10 @@ class Query
 	private $deleted_at;
 	private $updated_at;
 	private $created_at;
+	private $data;
 
 
-	/*
+	/**
 	 *Construct PDO
 	 */
 	public function __construct(){
@@ -47,15 +48,19 @@ class Query
 
 	}
 
-	/*
+	/**
 	 *Get model class name
+	 *
+	 *@return child class
 	 */
 	public function model(){
 		return strtolower(Plural::pluralize(get_called_class()));
 	}
 
-	/*
+	/**
 	 *Select all
+	 *
+	 *@return HTTP Response
 	 */
 	public function all(){
 		$sql = "SELECT * FROM ".$this->model()." WHERE deleted_at IS NULL";
@@ -73,7 +78,7 @@ class Query
 		}
 	}
 
-	/*
+	/**
 	 *Get by ID
 	 *
 	 *@param HTTP Request
@@ -97,7 +102,7 @@ class Query
 
 	}
 
-	/*
+	/**
 	 *Insert
 	 *
 	 *@param HTTP Request
@@ -132,7 +137,7 @@ class Query
 		
 	}
 
-	/*
+	/**
 	 *Update
 	 *
 	 *@param HTTP Request
@@ -147,16 +152,15 @@ class Query
 		foreach ($request as $column => $data) {
 
 			$sql = "UPDATE ".$this->model()." SET $column='$data', updated_at='$this->updated_at' WHERE id=$id";
-			echo $sql;
 			$this->pdo->exec($sql);
 
 		}
 
-		return true;
+		return TRUE;
 
 	}
 
-	/*
+	/**
 	 *Destroy
 	 *
 	 *@param HTTP Request
@@ -183,7 +187,7 @@ class Query
 	}
 
 
-	/*
+	/**
 	 *Validate request
 	 *
 	 *@param HTTP Request and array Rules
@@ -250,6 +254,12 @@ class Query
 
 	}
 
+	/**
+	 *Escape HTML characters
+	 *
+	 *@param HTTP Request
+	 *@return HTTP Request
+	 */
 	public function escapeHTML(array $request){
 		//Escape html characters
 		$req = [];
@@ -259,6 +269,83 @@ class Query
 		}
 
 		return $req;
+	}
+
+
+	/**
+	 *OrderBy
+	 *
+	 *@param HTTP Request
+	 *@return HTTP Response
+	 */
+	public function orderBy($column, $sort){
+
+		$rule = strtoupper($sort);
+
+		$sql = $this->data."ORDER BY $column $rule ";
+	
+			$this->data = $sql;
+
+			return $this;
+
+	}
+
+	/**
+	 *Where
+	 *
+	 *@param HTTP Request
+	 *@return HTTP Response
+	 */
+	public function where($column, $data){
+
+		$sql = $this->data."WHERE $column='$data' AND deleted_at IS NULL ";
+	
+			$this->data = $sql;
+
+			return $this;
+
+	}
+
+	/**
+	 *Limit
+	 *
+	 *@param HTTP Request
+	 *@return HTTP Response
+	 */
+	public function limit($counter){
+
+		$sql = $this->data."LIMIT $counter ";
+
+		$this->data = $sql;
+
+		return $this;
+	}
+
+
+	/**
+	 *Get
+	 *
+	 *@param HTTP Request
+	 *@return HTTP Response
+	 */
+	public function get(){
+
+		$sql = "SELECT * FROM ".$this->model()." ".$this->data;
+
+		// return $sql;
+
+		$result = $this->pdo->query($sql) or die("Failed");
+
+		$data = [];
+
+		while ($request = $result->fetch()) {
+			$data[] = $request;
+		}
+
+		if($data != NULL){
+			return json_encode($data);
+		}
+		
 	}
 
 }

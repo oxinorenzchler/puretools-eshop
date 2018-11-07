@@ -9,13 +9,16 @@
         </div>
         <?php unset($_SESSION['success']); }?>
         <h3>Manage Products</h3>
-        <table id="users-table" class="table table-striped table-bordered" style="width:100%">
+        <table id="users-table" class="table table-striped table-bordered table-sm">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Price</th>
                     <th>Description</th>
+                    <th>Short Description</th>
+                    <th>Details</th>
+                    <th>Image</th>
                     <th>Encoded At</th>
                     <th>Action</th>
                 </tr>
@@ -26,15 +29,20 @@
                         <td><?php echo $product->name; ?></td>
                         <td><?php echo $product->category_id; ?></td>
                         <td><?php echo "&#8369; ".number_format($product->price); ?></td>
-                        <td><?php echo $product->description; ?></td>
-                        <td><?php echo date('Y-m-d'); ?></td>
-                        <td class="d-flex justify-content-center">
+                        <td><?php echo substr($product->description, 0, 10); ?></td>
+                        <td><?php echo substr($product->sdescription, 0, 10); ?></td>
+                        <td><?php echo substr($product->details, 0, 10); ?></td>
+                        <td><img src="<?php echo $product->image; ?>"  height="50" width="50"></td>
+                        <td><?php echo $product->created_at; ?></td>
+                        <td class="">
                           <form id="showEditForm<?php echo $product->id ?>" action="lib/controllers/ProductController.php" method="GET">
-                            <input type="text" name="id" value=<?php echo $product->id; ?> >
+                            <input type="hidden" name="id" value=<?php echo $product->id; ?> >
                             <input type="hidden" name="showEditForm">
-                            <a onclick="$('#showEditForm' + <?php echo $product->id ?>).submit()" class="fa fa-edit mr-2"></a>
                         </form>
+                          <div class="d-flex justify-content-center">
+                              <a onclick="$('#showEditForm' + <?php echo $product->id ?>).submit()" class="fa fa-edit mr-2"></a>
                         <a class="fa fa-trash"  onclick="deleteProduct(<?php echo $product->id; ?>)"></a>
+                        </div>
                     </td>
                 </tr>
             <?php } ?>
@@ -45,6 +53,9 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>Description</th>
+                <th>Short Description</th>
+                <th>Details</th>
+                <th>Image</th>
                 <th>Encoded At</th>
                 <th>Action</th>
             </tr>

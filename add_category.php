@@ -20,7 +20,7 @@
 							</ul>
 						<?php } ?>
 					</div>
-				<?php } ?>
+				<?php unset($_SESSION['file']); } ?>
 
 				<?php if(isset($_SESSION['file'])) { ?>
 				<div class="alert alert-danger" role="alert">
@@ -30,7 +30,8 @@
 							</ul>
 						<?php } ?>
 				</div>
-				<?php } ?>
+				<?php unset($_SESSION['file']); } ?>
+
 				<h2><i class="fas fa-plus-circle"></i> Add New Category</h2>
 				<form action="lib/controllers/CategoryController.php" method="POST" enctype="multipart/form-data">
 					<div class="form-group">

@@ -1,3 +1,5 @@
+<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/PublicController.php'); ?>
+<?php unset($_SESSION['productID']); ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/carousel.php') ?>

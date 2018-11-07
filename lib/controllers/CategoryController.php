@@ -7,7 +7,7 @@ include($_SERVER['DOCUMENT_ROOT'].'/techies/lib/FileHandler.php');
 
 $category = new Category();
 
-/*
+/**
  *Get all categories
  *
  *@return HTTP Response
@@ -19,7 +19,7 @@ function getAllCategories(){
 
 
 
-/*
+/**
  *Insert
  *
  *@param HTTP Request
@@ -29,6 +29,7 @@ function getAllCategories(){
 //Check if request is comming from add product form
 if(isset($_POST['addCategoryForm'])){
 	
+	//Set directory for upload
 	$dir = 'assets/img/uploads/categories/';
 
 	//Set rules
@@ -44,7 +45,8 @@ if(isset($_POST['addCategoryForm'])){
 	$request = array(
 
 		'name' => $_POST['name'],
-		'image' => $image = FileHandler::uploadFile($_FILES, $dir),
+		//Upload file
+		'image' => FileHandler::uploadFile($_FILES, $dir),
 
 	);
 
@@ -65,7 +67,7 @@ if(isset($_POST['addCategoryForm'])){
 
 }
 
-/*
+/**
  *Delete product
  *
  *@param HTTP Request
@@ -95,7 +97,7 @@ if (isset($_POST['deleteCategoryForm'])) {
 
 }
 
-/*
+/**
  *Show edit form
  *
  *@param HTTP Request
@@ -116,6 +118,65 @@ if(isset($_GET['showEditForm'])){
 
 			header("Location: http://".$_SERVER['SERVER_NAME']."/techies/edit_category.php");
 		}
+	}
+
+}
+
+/*
+ *Save edit
+ *
+ *@param HTTP Request
+ *@return HTTP Response
+ */
+if (isset($_POST['saveEdit'])) {
+
+	$id = $_POST['id'];
+
+	//Set rules
+	$rules = array(
+		'name' => ['required','string'],
+	);
+
+	//Validate
+	$category->validate($_POST, $rules);
+
+	//Check if there is file
+	if ((int)$_FILES['file']['error'] != 0) {
+
+		//Assign values
+		$request = array(
+
+			'name' => $_POST['name'],
+			
+		);
+
+		
+	}else{
+
+		//Set directory for upload
+		$dir = 'assets/img/uploads/categories/';
+
+		//Assign values
+		$request = array(
+			'name' => $_POST['name'],
+			//Upload file
+			'image' => FileHandler::uploadFile($_FILES, $dir),
+		);
+	}
+
+
+	//Check if errors exists
+	if(!isset($_SESSION['errors']) && !isset($_SESSION['file'])){
+
+
+		//Insert to DB and check if success
+		if($category->editCategory($request, $id)){
+
+			$_SESSION['success'] = "Category updated";
+			//Redirect
+			header("Location: ".$_SERVER['HTTP_REFERER']."");
+		}
+
 	}
 
 }

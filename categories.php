@@ -3,6 +3,8 @@
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/admin_nav.php') ?>
 <div class="container mt-5 mb-5" style="min-height: 100vh; height: auto;">
     <?php unset($_SESSION['categoryID']); ?>
+    <?php unset($_SESSION['errors']); ?>
+    <?php unset($_SESSION['file']); ?>
     <?php if(isset($_SESSION['success'])) { ?>
         <div class="alert alert-success" role="alert">
             <?php echo $_SESSION['success']; ?>

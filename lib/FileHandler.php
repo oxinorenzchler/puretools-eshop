@@ -1,26 +1,40 @@
 <?php
 
 /**
- * 
+ *File Handler Class
  */
 class FileHandler
 {
 	
+	/**
+	 *Upload file
+	 *
+	 *@param HTTP Request, String
+	 *@return HTTP Response
+	 */
 	public static function uploadFile(array $file, $location){
-
+		$_SESSION['file'] = [];
+		//Define root path
 		define ('SITE_ROOT', realpath(dirname(__DIR__)));
 
+		//Set location
 		$target_dir = $location;
 
+		//Set filename for validation
 		$target_file = $target_dir . basename($_FILES["file"]["name"]);
 
+		//Initialize upload status
 		$uploadOk = 1;
 
+		//Set file extension
+		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+		var_dump($imageFileType);
 
+		//Set file name for database
 		$file_name = date('his').".".$imageFileType;
 
+		//set file path to be uploaded
 		$file_path = SITE_ROOT."/".$target_dir.$file_name;
 
 
@@ -56,12 +70,19 @@ class FileHandler
 
 		// Check if $uploadOk is set to 0 by an error
 		if ($uploadOk == 0) {
-			header("Location: ".$_SERVER['HTTP_REFERER']."");			
+			header("Location: ".$_SERVER['HTTP_REFERER']."");	
+
 			// if everything is ok, try to upload file
 		} else {
+
+			//Unset errors validation passed
 			unset($_SESSION['file']);
+
 			if (move_uploaded_file($_FILES["file"]["tmp_name"], $file_path)) {
+
+				//return file path to be stored in database
 				return $location.$file_name;
+
 			}
 		}
 	}

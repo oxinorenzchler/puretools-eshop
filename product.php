@@ -20,13 +20,13 @@
       <div class="row">
         <div class="col-md-6">
           <div class="product-featured-image border">
-            <img src="assets/img/products/printer.jpg" class="img-fluid">
+            <img src="<?php echo $product->image; ?>" class="img-fluid">
           </div>
         </div>
         <div class="col-md-6">
           <h3><?php echo $product->name; ?></h3>
-          <span>&#8369; <?php echo $product->price; ?></span>
-          <p><?php echo $product->description; ?></p>
+          <span>&#8369; <?php echo number_format($product->price, 2); ?></span>
+          <p><?php echo $product->sdescription; ?></p>
           <form class="mb-3">
             <input type="number" name="quantity" class="form-control w-50" min="1">
             <button class="btn btn-danger btn-sm"><i class="fas fa-shopping-cart"></i> Add to cart</button>
@@ -57,8 +57,8 @@
   </li>
 </ul>
 <div class="tab-content mb-5" id="myTabContent">
-  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</div>
-  <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</div>
+  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab"><?php echo $product->description; ?></div>
+  <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab"><?php echo $product->details; ?></div>
   
 </div>
 <?php } ?>
