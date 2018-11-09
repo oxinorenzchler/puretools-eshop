@@ -8,6 +8,16 @@ include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/Category.php');
 $categories = new Category();
 $products = new Product();
 
+/*
+ *Get all products
+ *
+ *@return HTTP Response
+ */
+function getAllProducts(){
+	$product = new Product();
+	return $product->getAll();
+}
+
 function getCategories(){
 	$categories = new Category();
 	return json_decode($categories->getAll());
@@ -43,3 +53,9 @@ if(isset($_GET['getProductForm'])){
 		}
 	}
 }
+
+/**
+ * Rating
+ *
+ *	
+ */

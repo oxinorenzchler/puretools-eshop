@@ -19,7 +19,7 @@
     <div class="content mb-5 mt-5">
       <div class="row">
         <div class="col-md-6">
-          <div class="product-featured-image border">
+          <div class="product-featured-image z-depth-2 p-2 rounded" id="product-image">
             <img src="<?php echo $product->image; ?>" class="img-fluid">
           </div>
         </div>
@@ -190,13 +190,9 @@
 ?>
 <script type="text/javascript">
   $(document).ready(function(){
-    var redirect = $('#redirect').val();
-    var $protocol = window.location.protocol
-    var $location = window.location.host;
-    // if(redirect != undefined){
-    //   // window.location = $protocol+"//"+$location+"/index.php";
-    //   window.location = "index.php";
-    // }
+    
+      $('#product-image').zoom();
+    
   });
 </script>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>

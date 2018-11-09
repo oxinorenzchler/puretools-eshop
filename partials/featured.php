@@ -24,7 +24,7 @@
       <p class="card-text m-0 blue-text">&#8369;
       <?php echo number_format($product->price, 2); ?></p>
       <form action="lib/controllers/PublicController.php" method="GET">
-            <input type="text" name="id" value=<?php echo $product->id; ?> >
+            <input type="hidden" name="id" value=<?php echo $product->id; ?> >
             <button class="btn btn-primary btn-sm w-100" name="getProductForm">View</button>
           </form>
       <a href="#" class="btn btn-sm btn-danger w-100"><i class="fas fa-shopping-cart"></i></a>

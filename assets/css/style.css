@@ -55,3 +55,22 @@
   img{
   	object-fit: contain !important;
   }
+
+
+  .page{
+  	background-color: #3062B3 !important;
+  	color: white;
+  	margin-right: 5px;
+  	padding: 5px 10px;
+  	border-radius: 5px;
+  }
+  .page:hover{
+  	color: orange;
+  }
+.checked {
+    color: orange;
+}
+
+.fa-star:hover{
+	cursor: pointer !important;
+}
