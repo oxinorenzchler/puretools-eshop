@@ -86,7 +86,7 @@ class Query
 	 */
 	public function find($id){
 
-		$sql = "SELECT * FROM ".$this->model()." WHERE id=$id";
+		$sql = "SELECT * FROM ".$this->model()." WHERE id=$id LIMIT 1";
 
 		$result = $this->pdo->query($sql);
 
@@ -321,7 +321,14 @@ class Query
 		return $this;
 	}
 
-
+	/**
+	 *Raw
+	 *
+	 */
+	public function raw($sql){
+		$this->data = $sql;
+		return $this;
+	}
 	/**
 	 *Get
 	 *

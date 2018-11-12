@@ -67,7 +67,11 @@
   .page:hover{
   	color: orange;
   }
-.checked {
+
+.fa-star{
+  font-size: 0.7em;
+}
+.checked{
     color: orange;
 }
 

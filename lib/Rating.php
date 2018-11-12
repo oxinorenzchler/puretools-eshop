@@ -10,8 +10,7 @@ class Rating extends Query
 	
 	
 	public function rateProduct(array $data){
-		// return $this->insert();
+		return $this->insert($data);
 	}
-
 
 }
