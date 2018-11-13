@@ -2,6 +2,8 @@
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
 <?php unset($_SESSION['productID']); ?>
+<?php unset($_SESSION['category_id']); ?>
+<?php unset($_SESSION['filter']); ?>
 
 <div class="container mb-5">
 	<nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
@@ -12,21 +14,58 @@
   </nav>
 
   <div class="mt-5 row">
-  	<div class="col-md-3 col-lg-3 mb-3">
-  		<div class="card">
-  			<h3 class="card-title p-2 red text-center">Categories</h3>
-  			<div class="card-body">
-  				<ul class="list-unstyled">
+    <div class="col-md-3 col-lg-3 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="filter-title">Categories</h5>
+          <ul class="list-unstyled">
             <?php foreach (getCategories() as $category): ?>
               <li><a onclick="getByCategory(<?php echo $category->id; ?>)"><?php echo $category->name; ?></a></li>
             <?php endforeach ?>
-          </div>
-        </ul>
+          </ul>
+          <hr class="hr py-2">
+          <h5 class="filter-title">Filter</h5>
+          <form id="filter-form" method="GET">
+            <div class="form-group">
+              <label class="d-block filter-subtitle" for="rating-form">Rating <i class="fas fa-star checked"></i><i class="fas fa-star checked"></i><i class="fas fa-star checked"></i><i class="fas fa-star checked"></i><i class="fas fa-star checked"></i></label>
+              <select id="ratingpoints" name="ratingpoints">
+                <option value="">Select...</option>
+                <option value="5">5 star</option>
+                <option value="4">4 star</option>
+                <option value="3">3 star</option>
+                <option value="2">2 star</option>
+                <option value="1">1 star</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="d-block filter-subtitle">Category</label>
+              <select name="category" id="category">
+                <option value="">Select...</option>
+                <?php foreach (getCategories() as $category): ?>
+                  <option value="<?php echo $category->id; ?>"> <?php echo $category->name; ?></option>
+                <?php endforeach ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="d-block filter-subtitle">Price</label>
+              <div class="form-row">
+                <div class="col-lg-6">
+                  <input min="1" type="number" id="minprice" name="minprice" class="form-control mb-2 form-control-sm" placeholder="&#8369; min">
+                </div>
+                <div class="col-lg-6">
+                  <input min="1" type="number" id="maxprice" name="minprice" class="form-control form-control-sm" placeholder="&#8369; max">
+                </div>
+
+              </div>
+            </div> 
+
+            <button type="button" onclick="submitFilter()" class="btn btn-sm btn-warning w-100">submit</button>
+          </form>
+        </div>
       </div>
     </div>
-    <div class="col-md-9 col-lg-9">
-
-      <div id="test-list" >
+    <div class="col-md-9 col-lg-9"  id="catalog-container">
+      <div id="test-list">
         <div class="list row" id="product-list">
           <?php foreach (json_decode(getAllProducts()) as $product): ?>
            <div class="col-md-6 col-lg-4 mb-3 name">
@@ -44,116 +83,28 @@
             </div>
             <!-- Card content -->
             <div class="card-body text-center">
-              <div class="">
-                <?php if(getRating($product->id) == 1): ?>
-                  <span class="fas fa-star checked" onclick="rate(1, <?php echo $product->id ?>, 2)"></span>
-                  <span class="fas fa-star" onclick="rate(2, <?php echo $product->id ?>, 2)"></span>
-                  <span class="fas fa-star" onclick="rate(3, <?php echo $product->id ?>, 2)"></span>
-                  <span class="fas fa-star" onclick="rate(4, <?php echo $product->id ?>, 2)"></span>
-                  <span class="fas fa-star" onclick="rate(5, <?php echo $product->id ?>, 2)"></span>
-                  <?php elseif(getRating($product->id) == 2): ?>
-                    <span class="fas fa-star checked" onclick="rate(1, <?php echo $product->id ?>, 3)"></span>
-                    <span class="fas fa-star checked" onclick="rate(2, <?php echo $product->id ?>, 6)"></span>
-                    <span class="fas fa-star" onclick="rate(3, <?php echo $product->id ?>, 7)"></span>
-                    <span class="fas fa-star" onclick="rate(4, <?php echo $product->id ?>, 3)"></span>
-                    <span class="fas fa-star" onclick="rate(5, <?php echo $product->id ?>, 6)"></span>
-                    <?php elseif(getRating($product->id) == 3): ?>
-                      <span class="fas fa-star checked" onclick="rate(1, <?php echo $product->id ?>, 3)"></span>
-                      <span class="fas fa-star checked" onclick="rate(2, <?php echo $product->id ?>, 6)"></span>
-                      <span class="fas fa-star checked" onclick="rate(3, <?php echo $product->id ?>, 7)"></span>
-                      <span class="fas fa-star" onclick="rate(4, <?php echo $product->id ?>, 3)"></span>
-                      <span class="fas fa-star" onclick="rate(5, <?php echo $product->id ?>, 6)"></span>
-                      <?php elseif(getRating($product->id) == 4): ?>
-                        <span class="fas fa-star checked" onclick="rate(1, <?php echo $product->id ?>, 3)"></span>
-                        <span class="fas fa-star checked" onclick="rate(2, <?php echo $product->id ?>, 6)"></span>
-                        <span class="fas fa-star checked" onclick="rate(3, <?php echo $product->id ?>, 7)"></span>
-                        <span class="fas fa-star checked" onclick="rate(4, <?php echo $product->id ?>, 3)"></span>
-                        <span class="fas fa-star" onclick="rate(5, <?php echo $product->id ?>, 6)"></span>
-                        <?php elseif(getRating($product->id) == 5): ?>
-                         <span class="fas fa-star checked" onclick="rate(1, <?php echo $product->id ?>, 3)"></span>
-                         <span class="fas fa-star checked" onclick="rate(2, <?php echo $product->id ?>, 6)"></span>
-                         <span class="fas fa-star checked" onclick="rate(3, <?php echo $product->id ?>, 7)"></span>
-                         <span class="fas fa-star checked" onclick="rate(4, <?php echo $product->id ?>, 3)"></span>
-                         <span class="fas fa-star checked" onclick="rate(5, <?php echo $product->id ?>, 6)"></span>
-                         <?php else: ?>
-                          <span class="fas fa-star" onclick="rate(1, <?php echo $product->id ?>, 3)"></span>
-                          <span class="fas fa-star" onclick="rate(2, <?php echo $product->id ?>, 6)"></span>
-                          <span class="fas fa-star" onclick="rate(3, <?php echo $product->id ?>, 7)"></span>
-                          <span class="fas fa-star" onclick="rate(4, <?php echo $product->id ?>, 3)"></span>
-                          <span class="fas fa-star" onclick="rate(5, <?php echo $product->id ?>, 6)"></span>
-                        <?php endif ?>
-                      </div>
-                       <!-- Title -->
-                    <h6 class="card-title m-0"><a onclick="getProduct(<?php echo $product->id;?>)" class="grey-text"><?php echo $product->name; ?></a></h6>
-                    <!-- Text -->
-                    <p class="card-text m-0 blue-text">&#8369;
-                      <?php echo number_format($product->price, 2); ?></p>
-                      </div>
-                    </div>
-                  </div>
-                  <?php endforeach ?>      
-                </div>
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-
-                    </ul>
-                  </nav>
-                </div>
-
+              <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/rating.php') ?>
+              <!-- Title -->
+              <h6 class="card-title m-0"><a onclick="getProduct(<?php echo $product->id;?>)" class="grey-text"><?php echo $product->name; ?></a></h6>
+              <!-- Text -->
+              <p class="card-text m-0 blue-text">&#8369;
+                <?php echo number_format($product->price, 2); ?></p>
               </div>
-            </div>	
-
+            </div>
           </div>
+        <?php endforeach ?>      
+      </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+        </ul>
+      </nav>
+    </div>
 
 
-          <script type="text/javascript">
-  //div
-  var monkeyList = new List('test-list', {
-    //item
-    valueNames: ['name'],
-    page: 10,
-    pagination: true
+  </div>
+</div>	
 
+</div>
 
-  });
-  
-  function rate(pts,id,uid){
-
-    $.ajax({
-      'url':'lib/controllers/RatingController.php',
-      'method':'POST',
-      'data':{'pts':pts, 'id':id, 'rating':'rating', 'uid':uid}
-    }).done(function(data){
-
-      console.log(data);
-
-    });
-
-  }
-
-
-//get product
-function getProduct(id){
-  $('#getproductform-' + id ).submit();
-}
-
-//get by category
-function getByCategory(id){
-  $.ajax({
-    'url':'lib/controllers/SearchController.php',
-    'method': 'GET',
-    'data':{'id':id, 'search':'search'}
-  }).done(function(data){
-      var data = JSON.parse(data);
-
-      var products = Object.values(data);
-
-      $('#test-list').empty().load('category.php?category_id=1');
-
-      for(const product of data ){
-
-      }
-  });
-}
-</script>
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>
