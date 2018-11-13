@@ -31,17 +31,18 @@
 	<a href="index.php">
 		<img src="assets/img/demo.jpg">
 	</a>
-	<form class="d-none d-md-block d-lg-block">
+	<form class="d-none d-md-block d-lg-block" method="GET" action="lib/controllers/SearchController.php">
+		<input type="hidden" name="search">
 		<div class="input-group">
 			<div class="input-group-prepend">
-				<select class="form-control">
-					<option>All</option>
-					<option>Home</option>
-					<option>Office</option>
-					<option>Heavy Equipments</option>
+				<select class="form-control" name="category">
+					<option value="">All</option>
+                <?php foreach (getCategories() as $category): ?>
+                  <option value="<?php echo $category->id; ?>"> <?php echo $category->name; ?></option>
+                <?php endforeach ?>
 				</select>
 			</div>
-			<input type="text" name="" class="form-control">
+			<input type="text" name="product" class="form-control">
 		</div>
 	</form>
 	<ul class="list-inline d-none d-md-block d-lg-block">
@@ -65,19 +66,19 @@
 					</form>	
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Catalogs</a>
+					<a class="nav-link" href="catalog.php">Catalogs</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">About</a>
+					<a class="nav-link" href="about.php">About</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Developer Profile</a>
+					<a class="nav-link" href="">Developer Profile</a>
 				</li>
 				<li class="nav-item d-none mobile-link">
-					<a href="" class="nav-link">Contact Us</a>
+					<a href="contact.php" class="nav-link">Contact Us</a>
 				</li>
 				<li class="nav-item d-none mobile-link">
 					<a href="" class="nav-link">Login</a>
