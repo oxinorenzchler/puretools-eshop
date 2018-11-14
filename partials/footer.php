@@ -115,5 +115,6 @@
 <script type="text/javascript" src="assets/js/mdb.min.js"></script>
 <script type="text/javascript" src="assets/slick/slick.js"></script>
 <script type="text/javascript" src="assets/js/puretools.js"></script>
+<script type="text/javascript" src="assets/js/cart.js"></script>
 </body>
 </html>
