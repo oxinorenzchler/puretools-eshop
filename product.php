@@ -33,10 +33,10 @@
            </div>
            <span>&#8369; <?php echo number_format($product->price, 2); ?></span>
            <p><?php echo $product->sdescription; ?></p>
-           <form class="mb-3">
+           <div class="mb-3" id="add-to-cart-form">
             <input type="number" name="quantity" class="form-control w-50" min="1">
-            <button class="btn btn-danger btn-sm"><i class="fas fa-shopping-cart"></i> Add to cart</button>
-          </form>
+            <button class="btn btn-danger btn-sm" onclick="addToCart(<?php echo $product->id; ?>)"><i class="fas fa-shopping-cart"></i> Add to cart</button>
+          </div>
           <ul class="list-unstyled pr-2 pl-2">
             <li class="mb-2">
               <img src="assets/img/svg/shield.png" height="30" width="30">

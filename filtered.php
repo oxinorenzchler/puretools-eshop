@@ -1,5 +1,4 @@
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/PublicController.php'); ?>
-<?php unset($_SESSION['productID']); ?>
 
 <?php if(isset($_SESSION['filter'])): ?>
 

@@ -37,9 +37,9 @@
 			<div class="input-group-prepend">
 				<select class="form-control" name="category">
 					<option value="">All</option>
-                <?php foreach (getCategories() as $category): ?>
-                  <option value="<?php echo $category->id; ?>"> <?php echo $category->name; ?></option>
-                <?php endforeach ?>
+					<?php foreach (getCategories() as $category): ?>
+						<option value="<?php echo $category->id; ?>"> <?php echo $category->name; ?></option>
+					<?php endforeach ?>
 				</select>
 			</div>
 			<input type="text" name="product" class="form-control">
@@ -47,9 +47,16 @@
 	</form>
 	<ul class="list-inline d-none d-md-block d-lg-block">
 		<li class="list-inline-item"><i class="fas fa-headset"></i> Contact Us</li>
-		<li class="list-inline-item"><i class="fas fa-shopping-cart"></i> Cart</li>
+		<li class="list-inline-item"><i class="fas fa-shopping-cart"></i> Cart 
+			<sup id="cart-count">
+				<?php if(isset($_SESSION['cart_count'])): ?>
+					<?php echo $_SESSION['cart_count']; ?> 
+				<?php endif ?>
+			</sup>
+		</li>
 	</ul>
 </div>
+
 <!-- Navbar -->
 <div class="bg-primary">
 	<div class="container">
