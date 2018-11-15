@@ -16,7 +16,7 @@
             <div class="mask flex-center rgba-black-slight">
              <form id="getproductform-<?php echo $product->id; ?>" action="lib/controllers/PublicController.php" method="GET">
               <input type="hidden" name="id" value=<?php echo $product->id; ?> >
-              <input type="hidden" name="getProductForm">
+              <input type="hidden" name="slug" value=<?php echo $product->slug; ?>>
               <button class="btn btn-primary btn-sm w-100" >View</button>
             </form>  
           </div>

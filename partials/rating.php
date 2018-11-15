@@ -37,3 +37,4 @@
                           <span class="fas fa-star" onclick="rate(5, <?php echo $product->id ?>, 6)"></span>
                         <?php endif ?>
                       </div>
+

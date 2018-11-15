@@ -67,7 +67,7 @@
     <div class="col-md-9 col-lg-9"  id="catalog-container">
       <div id="test-list">
         <div class="list row" id="product-list">
-          <?php foreach (json_decode(getAllProducts()) as $product): ?>
+          <?php foreach (getAllProducts() as $product): ?>
            <div class="col-md-6 col-lg-4 mb-3 name">
              <div class="card border border-light">
               <!--Zoom effect-->
@@ -76,7 +76,7 @@
                 <div class="mask flex-center rgba-black-slight">
                  <form action="lib/controllers/PublicController.php" method="GET" id="getproductform-<?php echo $product->id; ?>">
                   <input type="hidden" name="id" value=<?php echo $product->id; ?> >
-                  <input type="hidden" name="getProductForm">
+                  <input type="hidden" name="slug" value=<?php echo $product->slug; ?>>
                   <button class="btn btn-primary btn-sm w-100">View</button>
                 </form>  
               </div>

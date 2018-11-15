@@ -12,36 +12,65 @@ $products = new Product();
 /*
  *Get all products
  *
- *@return HTTP Response
+ *@return products
  */
 function getAllProducts(){
-	$product = new Product();
-	return $product->getAll();
-}
-
-function getCategories(){
-	$categories = new Category();
-	return json_decode($categories->getAll());
-}
-
-function getFeatured($id){
 	$products = new Product();
-	$products = $products->where('category_id', $id)->orderBy('created_at','desc')->limit(5)->get();
 
-	return json_decode($products);
+	$result = json_decode($products->all());
+
+	return $result;
 }
 
 /*
- *Get product
+ *Get categories
+ *
+ *@return categories
+ */
+
+function getCategories(){
+
+	$categories = new Category();
+	
+	$result = json_decode($categories->all());
+
+	return $result;
+
+}
+
+
+/*
+ *Get featured products according to date created
+ *
+ *@param category id
+ *@return products
+ */
+
+
+function getFeatured($id){
+
+	$products = new Product();
+
+	$products = $products->where('category_id', $id)->orderBy('created_at','desc')->limit(5)->get();
+
+	return json_decode($products);
+
+}
+
+
+/*
+ *Get product page
  *
  *@param HTTP Request
  *@return HTTP Response
  */
 
-if(isset($_GET['getProductForm'])){
+if(isset($_GET['slug']) && !empty($_GET['slug'])){
+
 
 	if(isset($_GET['id']) && !empty($_GET['id'])){
 		$id = $_GET['id'];
+		$slug = $_GET['slug'];
 		if(empty($id)){
 
 			header("Location: ".$_SERVER['HTTP_REFERER']."");
@@ -49,11 +78,39 @@ if(isset($_GET['getProductForm'])){
 		}else{
 
 			$_SESSION['productID'] = $id;
+			$_SESSION['product'] = $slug;
 
-			header("Location: http://".$_SERVER['SERVER_NAME']."/techies/product.php");
+			header("Location: http://".$_SERVER['SERVER_NAME']."/techies/product.php?pid=$id&product=$slug");
 		}
 	}
 }
+
+
+/*
+ *Get product
+ *
+ *@param product id
+ *@return product
+ */
+
+function getProduct($id){
+
+	$product = new Product();
+
+	$result = $product->find($id);
+
+	$product = $result;
+
+	return json_decode($product);
+}
+
+/*
+ *Get rating
+ *
+ *@param product id
+ *@return product rating
+ */
+
 
 function getRating($id){
 
@@ -61,28 +118,27 @@ function getRating($id){
 
 	$result = $product->find($id);
 
-	$stars;  
+	$stars = json_decode($result);
 
-	foreach (json_decode($result) as $value) {
-		$stars = $value->rating;
-	}
-
-	return $stars;
+	return $stars->rating;  
 }
 
+/*
+ *Get related products
+ *
+ *@param product id
+ *@return products
+ */
 
 function getRelatedProducts($id){
-	$products = new Product();
 
-	$category;
+	$products = new Product();
 
 	$result = $products->find($id);
 
-	foreach (json_decode($result) as $value) {
-		$category = $value->category_id;
-	}
+	$product = json_decode($result);
 
-	$sql = "WHERE id NOT IN ($id) AND category_id=$category ORDER BY RAND() ";
+	$sql = "WHERE id NOT IN ($id) AND category_id=$product->category_id ORDER BY RAND() ";
 
 	$related = $products->raw($sql)->limit(5)->get();
 
