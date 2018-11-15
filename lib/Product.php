@@ -52,9 +52,9 @@ class Product extends Query
 	 *@param HTTP Request, Product ID
 	 *@return HTTP Response
 	 */
-	public function getProduct($id){
-		return $this->find($id);
-	}
+	// public function getProduct($id){
+		// return $this->find($id);
+	// }
 
    
 }

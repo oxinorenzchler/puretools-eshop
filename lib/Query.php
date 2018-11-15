@@ -86,18 +86,16 @@ class Query
 	 */
 	public function find($id){
 
-		$sql = "SELECT * FROM ".$this->model()." WHERE id=$id LIMIT 1";
+		$sql = "SELECT * FROM ".$this->model()." WHERE id=:id LIMIT 1";
 
-		$result = $this->pdo->query($sql);
+		$query = $this->pdo->prepare($sql);
 
-		$data = [];
+		$query->execute([':id'=>$id]);
 
-		while ($r = $result->fetch()) {
-			$data[] = $r;
-		}
+		$result = $query->fetch();
 
-		if($data != NULL){
-			return json_encode($data);
+		if($result != NULL){
+			return json_encode($result);
 		}
 
 	}
@@ -214,36 +212,56 @@ class Query
 
 					case 'required':
 					if($request[$value] === ''){
-						$_SESSION['errors'][] = $value . ' is required.';
+						$_SESSION['errors'][$value] = $value . ' is required.';
 					}
 					break;
 
 					case 'string':
 					if(!is_string($request[$value])){
-						$_SESSION['errors'][] = $value . ' must be a string.';
+						$_SESSION['errors'][$value] = $value . ' must be a string.';
 					}
 					break;
 
 					case 'numeric':
 					if(!is_numeric($request[$value])){
-						$_SESSION['errors'][] = $value . ' must be a number';
+						$_SESSION['errors'][$value] = $value . ' must be a number';
 					}
 					break;
 
 					case 'min':
 					if(is_string($request[$value]) && $request[$value] < 8){
-						$_SESSION['errors'][] = $value . ' must be at least 8 character';
+						$_SESSION['errors'][$value] = $value . ' must be at least 8 character';
+					}
+					break;
+
+					case 'email':
+					if (!filter_var($request[$value], FILTER_VALIDATE_EMAIL)) {
+						$_SESSION['errors'][$value] = $value . ' must be a valid email';
+					}
+					break;
+
+					case 'password_confirmation':
+					if ($request['password'] != $request['password_confirmation']){
+						$_SESSION['errors']['password_confirm'] =  "password does not match.";
+					}
+					break;
+
+					case 'tel':
+					if (!preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/", $request[$value])) {
+						$_SESSION['errors'][$value] = $value ." must be a valid. (xxx-xxxx-xxxx).";
 					}
 					break;
 
 					default:
+
 					throw new Exception("Invalid rule.", 1);
+
 					break;
 				}
 
 			}
 		}
-		
+
 		//Check for errors then redirect to previous page
 		if(count($_SESSION['errors']) > 0){
 			header("Location: ".$_SERVER['HTTP_REFERER']."");
@@ -283,10 +301,10 @@ class Query
 		$rule = strtoupper($sort);
 
 		$sql = $this->data."ORDER BY $column $rule ";
-	
-			$this->data = $sql;
 
-			return $this;
+		$this->data = $sql;
+
+		return $this;
 
 	}
 
@@ -299,10 +317,10 @@ class Query
 	public function where($column, $data){
 
 		$sql = $this->data."WHERE $column='$data' AND deleted_at IS NULL ";
-	
-			$this->data = $sql;
 
-			return $this;
+		$this->data = $sql;
+
+		return $this;
 
 	}
 
