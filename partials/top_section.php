@@ -6,7 +6,7 @@
 			Sale of 50% off everything shop sitewide sale
 		</div>
 		<div class="col-md-3 text-center d-md-block d-none">
-			<?php if (isset($_SESSION['user_id'])): ?>
+			<?php if (isset($_SESSION['uid'])): ?>
 				<div class="btn-group">
 					<button type="button" class="btn btn-danger btn-sm">My Account</button>
 					<button type="button" class="btn btn-danger dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
@@ -14,11 +14,10 @@
 					<span class="sr-only">Toggle Dropdown</span>
 				</button>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Action</a>
-					<a class="dropdown-item" href="#">Another action</a>
-					<a class="dropdown-item" href="#">Something else here</a>
+					<a class="dropdown-item" href="#">Orders</a>
+					<a class="dropdown-item" href="#">Address</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
+					<a class="dropdown-item" href="lib/controllers/LogoutController.php">Logout</a>
 				</div>
 			</div>
 			<?php else: ?>
