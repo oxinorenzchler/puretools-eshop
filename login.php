@@ -1,32 +1,36 @@
 <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
-
 <div class="container mt-5 mb-5">
 	<div class="row">
 		<div class="col-md-6 offset-md-3">
 			<!-- Default form login -->
-			<form class="text-center border border-light p-5">
+			<form class="border border-light p-5">
 
 				<p class="h4 mb-4 text-uppercase">Sign in</p>
 
 				<!-- Email -->
-				<input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+				<div class="form-group">
+					<label for="email" class="font-weight-bold">Email</label>
+					<input type="email" id="email" name="email" class="form-control form-control-sm" placeholder="Your email">
+					<?php if(isset($_SESSION['errors']['name'])): ?>
+						<small class="text-left form-text text-muted red-text">*
+							<?php echo $_SESSION['errors']['name']; ?>    
+						</small>
+					<?php endif ?>
+				</div>
 
-				<!-- Password -->
-				<input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+				<div class="form-group">
+					<label for="password" class=" font-weight-bold">Password</label>
+					<input type="password" name="password" id="password" class="form-control form-control-sm">
+					<?php if(isset($_SESSION['errors']['name'])): ?>
+						<small class="text-left form-text text-muted red-text">*
+							<?php echo $_SESSION['errors']['name']; ?>    
+						</small>
+					<?php endif ?>
+				</div>
 
-				<div class="d-flex justify-content-around">
-					<div>
-						<!-- Remember me -->
-						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-							<label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
-						</div>
-					</div>
-					<div>
-						<!-- Forgot password -->
-						<a href="">Forgot password?</a>
-					</div>
+				<div class="small text-right">
+					<!-- Forgot password -->
+					<a href="">Forgot password?</a>
 				</div>
 
 				<!-- Sign in button -->
@@ -43,5 +47,3 @@
 		</div>
 	</div>
 </div>
-
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>

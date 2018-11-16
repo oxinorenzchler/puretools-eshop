@@ -2,13 +2,14 @@
 
 session_start();
 
-include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/Auth.php');
+include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/User.php');
 
+
+$user = new User();
 
 if (isset($_POST['register'])) {
-	
-	$user = new User();
 
+	var_dump($_POST);
 	$rules = array(
 		'name' => ['required','string'],
 		'email' => ['required','email'],
@@ -20,16 +21,27 @@ if (isset($_POST['register'])) {
 
 	$user->validate($_POST, $rules);
 
+	//Assign values
+	$request = array(
+
+		'name' => $_POST['name'],
+		'role_id' => 1,
+		'email' => $_POST['email'],
+		'password' => $_POST['password'],
+		'phone' => $_POST['phone'],
+
+	);
+
 
 	//Check if errors exists
 	if(!isset($_SESSION['errors'])){
 
 		//Insert to DB and check if success
-		if($product->addProduct($request)){
+		if($user->register($request)){
 
-			$_SESSION['success'] = "Item added";
-			//Redirect
-			header("Location: ".$_SERVER['HTTP_REFERER']."");
+			// $_SESSION['success'] = "";
+			// Redirect
+			header("Location: http://".$_SERVER['SERVER_NAME']."/techies/login.php");
 
 		}
 
