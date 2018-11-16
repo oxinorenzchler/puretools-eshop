@@ -9,16 +9,22 @@
 	.mobile-link{
 		display: block !important; 
 	}
+  #profile-avatar{
+    margin: auto;
+  }
 } 
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {...} 
+@media only screen and (min-width: 600px) {
+
+} 
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 	.filter-subtitle{
     font-size: 0.9em;
   }
+
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -29,7 +35,9 @@
   .filter-title{
     font-size: 1.5em;
   }
-  
+  #profile-avatar{
+    margin-left: auto;
+  }
 }
 .info-icon{
 	object-fit: contain;

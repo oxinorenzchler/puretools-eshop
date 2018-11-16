@@ -373,5 +373,25 @@ class Query
 		
 	}
 
+	/**
+	 * Auth
+	 * Login
+	 */
+	public function login
+	($email, $password){
+		//Prepare sql for login
+		$sql = "SELECT * FROM ".$this->model()." WHERE email=:email AND password=:password";
+
+		$query = $this->pdo->prepare($sql);
+
+		$query->execute([':email'=>$email, ':password'=>$password]);
+
+		$result = $query->fetch();
+
+		return json_encode($result);
+	
+	}
+
+	
 }
 

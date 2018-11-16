@@ -3,8 +3,9 @@
 <div class="container mt-5 mb-5">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-          <!-- Default form register -->
-          <form class="text-center border border-light p-5" action="lib/controllers/AuthController.php" method="POST">
+         <?php if (!isset($_SESSION['uid'])): ?>
+             <!-- Default form register -->
+          <form class="text-center border border-light p-5" action="lib/controllers/RegisterController.php" method="POST">
             <input type="hidden" name="register">
             <p class="h4 mb-4 text-uppercase">Sign up</p>
 
@@ -61,6 +62,8 @@
             <!-- Sign up button -->
             <button class="btn btn-info btn-sm my-4 btn-block" type="submit">Sign Up</button>
 
+            <p class="text-right small">Already have an account?<a href="login.php"> Sign in.</a></p>
+
             <hr class="my-4">
 
             <!-- Terms of service -->
@@ -70,6 +73,10 @@
                 <a href="" target="_blank">terms of service</a>. </p>
             </form>
             <!-- Default form register -->
+        <?php else: ?>
+            <img src="assets/img/404.png" class="img-fluid">
+            <a href="index.php" class="btn btn-sm btn-warning">Home</a>
+         <?php endif ?>
         </div>
     </div>
 </div>

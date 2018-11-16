@@ -4,20 +4,17 @@ session_start();
 
 include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/User.php');
 
+if (isset($_POST)) {
 
-$user = new User();
 
-if (isset($_POST['register'])) {
-
-	var_dump($_POST);
+		$user = new User();
 	$rules = array(
 		'name' => ['required','string'],
 		'email' => ['required','email'],
 		'password' => ['required', 'min'],
+		'password_confirmation' => ['password_confirmation'],
 		'phone' => ['required','tel'],
 	);
-
-	var_dump($rules);
 
 	$user->validate($_POST, $rules);
 
@@ -27,7 +24,7 @@ if (isset($_POST['register'])) {
 		'name' => $_POST['name'],
 		'role_id' => 1,
 		'email' => $_POST['email'],
-		'password' => $_POST['password'],
+		'password' => sha1($_POST['password']),
 		'phone' => $_POST['phone'],
 
 	);
@@ -37,7 +34,7 @@ if (isset($_POST['register'])) {
 	if(!isset($_SESSION['errors'])){
 
 		//Insert to DB and check if success
-		if($user->register($request)){
+		if($user->insert($request)){
 
 			// $_SESSION['success'] = "";
 			// Redirect
