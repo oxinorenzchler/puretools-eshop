@@ -150,11 +150,17 @@ class Query
 		foreach ($request as $column => $data) {
 
 			$sql = "UPDATE ".$this->model()." SET $column='$data', updated_at='$this->updated_at' WHERE id=$id";
-			$this->pdo->exec($sql);
+			try {
+				$this->pdo->exec($sql);
+			} catch (\PDOException $e) {
+				$_SESSION['errors']['duplicate'] = "Data already taken.";
+				header("Location: ".$_SERVER['HTTP_REFERER']."");
+			}
 
 		}
 
-		return TRUE;
+		return true;
+
 
 	}
 
@@ -229,7 +235,7 @@ class Query
 					break;
 
 					case 'min':
-					if(is_string($request[$value]) && $request[$value] < 8){
+					if(is_string($request[$value]) && strlen($request[$value]) < 8 ){
 						$_SESSION['errors'][$value] = $value . ' must be at least 8 character';
 					}
 					break;
@@ -380,7 +386,7 @@ class Query
 	public function login
 	($email, $password){
 		//Prepare sql for login
-		$sql = "SELECT * FROM ".$this->model()." WHERE email=:email AND password=:password";
+		$sql = "SELECT * FROM ".$this->model()." WHERE email=:email AND password=:password AND deleted_at IS NULL";
 
 		$query = $this->pdo->prepare($sql);
 
@@ -394,4 +400,5 @@ class Query
 
 	
 }
+
 

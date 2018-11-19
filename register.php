@@ -9,7 +9,7 @@
             <input type="hidden" name="register">
             <p class="h4 mb-4 text-uppercase">Sign up</p>
 
-            <!-- First name -->
+            <!-- Name -->
             <div class="form-group">
                 <input type="text" class="form-control form-control-sm" placeholder="Name" name="name">
                 <?php if(isset($_SESSION['errors']['name'])): ?>
@@ -17,7 +17,6 @@
                         <?php echo $_SESSION['errors']['name']; ?>    
                     </small>
                 <?php endif ?>
-
             </div>
 
             <!-- E-mail -->

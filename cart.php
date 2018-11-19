@@ -10,9 +10,10 @@
     </ol>
   </nav>
 
-  <div class="mt-5" style="overflow-x:  auto;" id="cart-table">
+  <div class="mt-5 table-responsive" id="cart-table">
     <?php if(isset($_SESSION['cart'])): ?>
       <h5 class="h2 mb-3 title text-uppercase"><img src="assets/img/svg/cart.png" class="info-icon">My Cart</h5>
+      <div class="table-wrapper">
 
       <table class="table table-hover">
         <thead class="orange white-text">
@@ -39,6 +40,7 @@
           <?php endforeach ?>
         </tbody>
       </table>
+    </div>
       <div class="d-flex justify-content-end">
         <span class="h3">Total: &#8369;</span>
         <span class="h3" id="total"><?php echo number_format($_SESSION['total'], 2); ?></span>

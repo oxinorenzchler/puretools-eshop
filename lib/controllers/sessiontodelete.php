@@ -17,3 +17,11 @@ search
 
 category
 <?php unset($_SESSION['productID']); ?>
+
+
+login register
+<?php unset($_SESSION['user']); ?>
+<?php unset($_SESSION['aut.error']); ?>
+<?php unset($_SESSION['errors']); ?>
+
+
