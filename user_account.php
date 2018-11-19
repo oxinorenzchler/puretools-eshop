@@ -9,7 +9,6 @@
 			<li class="breadcrumb-item active">My Account</li>
 		</ol>
 	</nav>
-
 	<?php if (isset($_SESSION['user'])): ?>
     <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
       <li class="nav-item">
@@ -19,135 +18,69 @@
         <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false">Address</a>
+        <a class="nav-link" id="deactivate-tab" data-toggle="tab" href="#deactivate" role="tab" aria-controls="deactivate" aria-selected="false">Deactivate</a>
       </li>
     </ul>
     <div class="tab-content mt-3" id="myTabContent">
       <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="orders-tab">
         <div class="row">
-          <div class="col-md-4 offset-md-4">
-
-            <div class="card w-100" style="width: 18rem;">
-
-              <div class="card-body">
-                <h5 class="card-title">Account Info</h5>
-                <ul class="list-unstyled card-text">
-                  <li><span class="font-weight-bold">Name:</span> <?php echo $_SESSION['user']->name; ?></li>
-                  <li><span class="font-weight-bold">Email:</span> <?php echo $_SESSION['user']->email; ?></li>
-                  <li><span class="font-weight-bold">Phone:</span> <?php echo $_SESSION['user']->phone; ?></li>
-                  <li><span class="font-weight-bold">Address:</span> <span class="small">Unit 3201 A East Tower, Philippine Stock Exchange, Ortigas, Pasig City, 1605 Kalakhang Maynila</span></li>
-                </ul>
-                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> edit</a>
+          <div class="col-md-8 offset-md-2">
+            <?php if(isset($_SESSION['success'])) { ?>
+              <div class="alert alert-success" role="alert">
+                <?php echo $_SESSION['success']; ?>
               </div>
-            </div>
+              <?php unset($_SESSION['success']); }?>
 
+              <?php if(isset($_SESSION['errors'])) { ?>
+                <div class="alert alert-danger" role="alert">
+                  <?php foreach($_SESSION['errors'] as $value) { ?>
+                    <ul class="list-unstyled">
+                      <li><?php echo $value; ?></li>
+                    </ul>
+                  <?php } ?>
+                </div>
+                <?php unset($_SESSION['errors']); } ?>
+                <div class="card w-100" style="width: 18rem;">
+
+                  <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user"></i> Account Info</h5>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <ul class="list-unstyled card-text">
+                          <li><span class="font-weight-bold">Name:</span> <?php echo $_SESSION['user']->name; ?></li>
+                          <li><span class="font-weight-bold">Email:</span> <?php echo $_SESSION['user']->email; ?></li>
+                          <li><span class="font-weight-bold">Phone:</span> <?php echo $_SESSION['user']->phone; ?></li>
+                        </ul>
+                      </div>
+                      <div class="col-md-6">
+                       <ul class="list-unstyled card-text">
+                        <li><span class="font-weight-bold">Address:</span> <?php echo $_SESSION['user']->address; ?></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit-account-modal"><i class="fa fa-edit"></i> edit</a>
+                  <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#change-password-modal">change password</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+          <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/orders.php') ?>
+        </div>
+         <div class="tab-pane fade" id="deactivate" role="tabpanel" aria-labelledby="deactivate-tab">
+          <div class="jumbotron">
+            <h4>Deactivate Account</h4>
+            <p>Please note that this action cannot be undone. All orders and transactions will be removed.</p>
+           <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deactivate-account-modal">Deactivate</a>
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-        <table class="table">
-          <thead class="grey lighten-2">
-            <tr>
-              <th scope="col">Reference #</th>
-              <th scope="col">Date</th>
-              <th scope="col">Payment</th>
-              <th scope="col">Total</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">pure-123xyz</th>
-              <td>2018-10-31</td>
-              <td>Paypal</td>
-              <td>$200</td>
-              <td>
-                <form>
-                  <input type="hidden" name="">
-                  <button class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></button>
-                </form>
-              </td>
-            </tr>
-
-            <tr>
-              <th scope="row">pure-123xyz</th>
-              <td>2018-10-31</td>
-              <td>Paypal</td>
-              <td>$200</td>
-              <td>
-                <form>
-                  <input type="hidden" name="">
-                  <button class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></button>
-                </form>
-              </td>
-            </tr>
-
-            <tr>
-              <th scope="row">pure-123xyz</th>
-              <td>2018-10-31</td>
-              <td>Paypal</td>
-              <td>$200</td>
-              <td>
-                <form>
-                  <input type="hidden" name="">
-                  <button class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></button>
-                </form>
-              </td>
-            </tr>
-
-            <tr>
-              <th scope="row">pure-123xyz</th>
-              <td>2018-10-31</td>
-              <td>Paypal</td>
-              <td>$200</td>
-              <td>
-                <form>
-                  <input type="hidden" name="">
-                  <button class="btn btn-sm btn-warning"><i class="fas fa-eye"></i></button>
-                </form>
-              </td>
-            </tr>
-          </tbody>
-        </table>    
-      </div>
-      <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-        <form>
-          <div class="row">
-            <div class="col-md-4 offset-md-4">
-              <!-- Large input -->
-              <div class="md-form form-lg">
-                <input type="text" id="inputLGEx" class="form-control form-control-sm">
-                <label for="inputLGEx">Name</label>
-              </div>
-
-              <div class="md-form form-lg">
-                <input type="text" id="inputLGEx" class="form-control form-control-sm">
-                <label for="inputLGEx">Address</label>
-              </div>
-
-              <div class="md-form form-lg">
-                <input type="text" id="inputLGEx" class="form-control form-control-sm">
-                <label for="inputLGEx">Contact</label>
-              </div>
-
-              <div class="md-form form-lg">
-                <input type="text" id="inputLGEx" class="form-control form-control-sm">
-                <label for="inputLGEx">City</label>
-              </div>
-
-              <div class="md-form form-lg">
-                <input type="text" id="inputLGEx" class="form-control form-control-sm">
-                <label for="inputLGEx">Zip Code</label>
-              </div>
-
-            </div>
-          </div>
-        </form>
-      </div>
+      <?php else: ?>
+        <img src="assets/img/404.png" class="img-fluid d-block mx-auto">
+      <?php endif ?>
     </div>
-    <?php else: ?>
-      <img src="assets/img/404.png" class="img-fluid d-block mx-auto">
-    <?php endif ?>
-  </div>
 
-  <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/edit_account.php') ?>
+    <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>

@@ -93,3 +93,6 @@
 .fa-star:hover{
 	cursor: pointer !important;
 }
+.table-wrapper{
+   overflow-x: auto !important;
+}
