@@ -6,23 +6,24 @@
 			Sale of 50% off everything shop sitewide sale
 		</div>
 		<div class="col-md-3 text-center d-md-block d-none">
-			<?php if (isset($_SESSION['uid'])): ?>
+			<?php if (isset($_SESSION['user'])): ?>
 				<div class="btn-group">
-					<button type="button" class="btn btn-danger btn-sm">My Account</button>
-					<button type="button" class="btn btn-danger dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
+					<button type="button" class="btn btn-danger btn-sm">
+					<?php echo $_SESSION['user']->name; ?>	
+					</button>
+					<button type="button" class="btn btn-danger btn-sm dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false">
 					<span class="sr-only">Toggle Dropdown</span>
 				</button>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Orders</a>
-					<a class="dropdown-item" href="#">Address</a>
+					<a class="dropdown-item small" href="user_account.php">My account</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="lib/controllers/LogoutController.php">Logout</a>
+					<a class="dropdown-item small" href="lib/controllers/LogoutController.php">Logout</a>
 				</div>
 			</div>
 			<?php else: ?>
-				<a href="" class="btn btn-sm btn-primary">Sign In</a>
-				<a href="" class="btn btn-sm btn-secondary">Register</a>
+				<a href="<?php echo Route::redirect("login.php"); ?>" class="btn btn-sm btn-primary">Sign In</a>
+				<a href="<?php echo Route::redirect("register.php") ?>" class="btn btn-sm btn-secondary">Register</a>
 			<?php endif ?>
 		</div>
 	</div>
@@ -94,15 +95,21 @@
 				<li class="nav-item d-none mobile-link">
 					<a href="contact.php" class="nav-link">Contact Us</a>
 				</li>
+				<?php if (isset($_SESSION['user'])): ?>
+				<li class="nav-item d-none mobile-link">
+					<a href="" class="nav-link">My Account</a>
+				</li>
+				<li class="nav-item d-none mobile-link">
+					<a class="nav-link" href="lib/controllers/LogoutController.php">Logout</a>
+				</li>
+				<?php else: ?>
 				<li class="nav-item d-none mobile-link">
 					<a href="" class="nav-link">Login</a>
 				</li>
 				<li class="nav-item d-none mobile-link">
 					<a href="" class="nav-link">Register</a>
 				</li>
-				<li class="nav-item d-none mobile-link">
-					<a href="" class="nav-link">My Account</a>
-				</li>
+				<?php endif ?>
 			</ul>
 		</div>
 	</nav>

@@ -21,7 +21,16 @@ if (isset($_POST)) {
 			unset($_SESSION['auth.error']);
 		}
 		$_SESSION['user'] = $result;
+
+		if (isset($_SESSION['redirect_url'])) {
+			header("Location: ".$_SESSION['redirect_url']."");
+		}else{
+
 		header("Location: http://".$_SERVER['SERVER_NAME']."/techies/user_account.php");
+<<<<<<< HEAD
+=======
+		}
+>>>>>>> dev
 	}else{
 		//Return to previous page with error
 		$_SESSION['auth.error'] = "Invalid credentials. Please check username or password.";

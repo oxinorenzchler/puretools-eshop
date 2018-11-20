@@ -79,7 +79,7 @@ function calculateRating($id){
 
 if(isset($_POST['rating'])){
 	//Fetch product
-	$product = $products->getProduct($_POST['id']);
+	$product = $products->find($_POST['id']);
 
 	//set data for rating
 	$data = array(

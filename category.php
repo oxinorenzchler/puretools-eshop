@@ -1,6 +1,4 @@
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/PublicController.php'); ?>
-<?php unset($_SESSION['productID']); ?>
-
+<?php include __DIR__.'\lib/controllers/PublicController.php'; ?>
 
 <?php if(isset($_SESSION['category_id'])): ?>
 
@@ -22,7 +20,7 @@
             </div>
             <!-- Card content -->
             <div class="card-body text-center">
-              <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/rating.php') ?>
+              <?php include __DIR__.'\partials/rating.php'; ?>
               <!-- Title -->
               <h6 class="card-title m-0"><a onclick="getProduct(<?php echo $product->id;?>)" class="grey-text"><?php echo $product->name; ?></a></h6>
               <!-- Text -->
@@ -66,7 +64,8 @@
   }
 
 </script>
-<?php unset($_SESSION['category_id']); ?>
+
+
 <?php else: ?>
 
 <div class="jumbotron">

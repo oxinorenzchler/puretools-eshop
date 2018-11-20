@@ -5,11 +5,17 @@
 	<div class="container mt-5 mb-5">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
+<<<<<<< HEAD
 				<?php if(isset($_SESSION['success'])): ?>
 					<div class="alert alert-success" role="alert">
 						<?php echo $_SESSION['success']; ?>
 					</div>
 				<?php endif ?>
+=======
+				<a href="index.php">
+					<img src="assets/img/demo.jpg" class="img-fluid d-block mx-auto">
+				</a>
+>>>>>>> dev
 				<?php if(!isset($_SESSION['user'])): ?>
 					<!-- Default form login -->
 					<form class="border border-light p-5" action="lib/controllers/LoginController.php" method="POST">
@@ -30,6 +36,7 @@
 								</small>
 							<?php endif ?>
 						</div>
+<<<<<<< HEAD
 
 						<div class="form-group">
 							<label for="password" class=" font-weight-bold">Password</label>
@@ -54,6 +61,32 @@
 						</p>
 
 
+=======
+
+						<div class="form-group">
+							<label for="password" class=" font-weight-bold">Password</label>
+							<input type="password" name="password" id="password" class="form-control form-control-sm">
+							<?php if(isset($_SESSION['errors']['name'])): ?>
+								<small class="text-left form-text text-muted red-text">*
+									<?php echo $_SESSION['errors']['name']; ?>    
+								</small>
+							<?php endif ?>
+						</div>
+						<div class="small text-right">
+							<!-- Forgot password -->
+							<a href="">Forgot password?</a>
+						</div>
+
+						<!-- Sign in button -->
+						<button class="btn btn-info btn-block btn-sm my-4" type="submit">Sign in</button>
+
+						<!-- Register -->
+						<p class="small">Not a member?
+							<a href="register.php">Register</a>
+						</p>
+
+
+>>>>>>> dev
 					</form>
 					<!-- Default form login -->
 					<?php else: ?>
@@ -64,4 +97,9 @@
 			</div>
 		</div>
 
+<<<<<<< HEAD
 	<?php session_destroy(); ?>
+=======
+<?php unset($_SESSION['errors']);?>
+<?php unset($_SESSION['auth.errors']);?>
+>>>>>>> dev
