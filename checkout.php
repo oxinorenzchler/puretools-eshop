@@ -1,8 +1,8 @@
-
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/PublicController.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/CartController.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
+<?php include __DIR__."\lib\\route\Route.php"; ?>
+<?php include __DIR__.'\lib/controllers/PublicController.php'; ?>
+<?php include __DIR__.'\lib/controllers/CartController.php'; ?>
+<?php include __DIR__.'\partials/header.php'; ?>
+<?php include __DIR__.'\partials/top_section.php'; ?>
 
 <div class="container mb-5">
   <?php if (isset($_SESSION['cart'])): ?>
@@ -13,12 +13,10 @@
       <li class="breadcrumb-item active">Checkout</li>
     </ol>
   </nav>
-
-
   <div class="mt-5">
     <h5 class="h2 mb-3 title text-uppercase"><img src="assets/img/svg/checkout.png" class="info-icon">Checkout</h5>
-    <?php if (!isset($_SESSION['uid'])): ?>
-      <span>Already have an account? <a href="" class="btn btn-sm btn-warning">Sign In</a></span>
+    <?php if (!isset($_SESSION['user'])): ?>
+      <span>Already have an account? <a href="<?php echo Route::redirect("login.php"); ?>" class="btn btn-sm btn-warning">Sign In</a></span>
     <?php endif ?>
     <div class="row">
       <div class="col-md-6">
@@ -74,7 +72,9 @@
             </select>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary w-100">Place Order</button>
+           <?php if (isset($_SESSION['user'])): ?>
+              <button class="btn btn-primary w-100">Place Order</button>
+           <?php endif ?>
           </div>    
         </form>
       </div>
@@ -84,4 +84,7 @@
     <img src="assets/img/404.png" class="img-fluid d-block mx-auto">
   <?php endif ?>
 </div>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>
+<?php include __DIR__.'\partials/footer.php'; ?>
+
+<!-- Store curren url -->
+<?php $_SESSION['redirect_url'] = Route::current(); ?>

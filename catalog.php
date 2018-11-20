@@ -1,9 +1,7 @@
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/PublicController.php'); ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
-<?php unset($_SESSION['productID']); ?>
-<?php unset($_SESSION['category_id']); ?>
-<?php unset($_SESSION['filter']); ?>
+<?php include __DIR__."\lib\\route\Route.php"; ?>
+<?php include __DIR__.'\lib/controllers/PublicController.php'; ?>
+<?php include __DIR__.'\partials/header.php'; ?>
+<?php include __DIR__.'\partials/top_section.php'; ?>
 
 <div class="container mb-5">
 	<nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
@@ -83,7 +81,7 @@
             </div>
             <!-- Card content -->
             <div class="card-body text-center">
-              <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/rating.php') ?>
+              <?php include __DIR__.'\partials/rating.php'; ?>
               <!-- Title -->
               <h6 class="card-title m-0"><a onclick="getProduct(<?php echo $product->id;?>)" class="grey-text"><?php echo $product->name; ?></a></h6>
               <!-- Text -->
@@ -107,4 +105,7 @@
 
 </div>
 
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>
+<?php include __DIR__.'\partials/footer.php'; ?>
+
+  <!-- Store curren url -->
+<?php $_SESSION['redirect_url'] = Route::current(); ?>

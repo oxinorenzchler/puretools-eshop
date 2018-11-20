@@ -22,7 +22,6 @@ class Query
 	private $created_at;
 	private $data;
 
-
 	/**
 	 *Construct PDO
 	 */

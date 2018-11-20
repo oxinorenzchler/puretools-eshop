@@ -45,18 +45,14 @@ function searchQuery($category, $product){
 	}
 }
 
-//Go to product
+//Get rating
 function getRating($id){
 
-	$product = new Product();
+$product = new Product();
 
 	$result = $product->find($id);
 
-	$stars;  
+	$stars = json_decode($result);
 
-	foreach (json_decode($result) as $value) {
-		$stars = $value->rating;
-	}
-
-	return $stars;
+	return $stars->rating;
 }

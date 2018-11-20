@@ -1,15 +1,12 @@
-
 <?php session_start(); ?>
 <div class="container mt-5 mb-5">
 	<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
 	<div class="container mt-5 mb-5">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
-				<?php if(isset($_SESSION['success'])): ?>
-					<div class="alert alert-success" role="alert">
-						<?php echo $_SESSION['success']; ?>
-					</div>
-				<?php endif ?>
+				<a href="index.php">
+					<img src="assets/img/demo.jpg" class="img-fluid d-block mx-auto">
+				</a>
 				<?php if(!isset($_SESSION['user'])): ?>
 					<!-- Default form login -->
 					<form class="border border-light p-5" action="lib/controllers/LoginController.php" method="POST">
@@ -64,4 +61,5 @@
 			</div>
 		</div>
 
-	<?php session_destroy(); ?>
+<?php unset($_SESSION['errors']);?>
+<?php unset($_SESSION['auth.errors']);?>

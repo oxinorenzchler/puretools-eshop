@@ -1,8 +1,7 @@
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/PublicController.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
-<?php unset($_SESSION['category_id']); ?>
-<?php unset($_SESSION['searchinput']); ?>
+<?php include __DIR__."\lib\\route\Route.php"; ?>
+<?php include __DIR__.'\lib/controllers/PublicController.php'; ?>
+<?php include __DIR__.'\partials/header.php'; ?>
+<?php include __DIR__.'\partials/top_section.php'; ?>
 
 <?php if(isset($_SESSION['productID']) && !empty($_GET['product']) && ($_GET['pid'] == $_SESSION['productID'] && $_SESSION['product'] == $_GET['product'])): ?>
 <!-- start -->
@@ -26,7 +25,7 @@
       <div class="col-md-6">
         <h3><?php echo getProduct($_SESSION['productID'])->name; ?></h3>
         <div>
-         <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/rating_productpage.php') ?>
+         <?php include __DIR__.'\partials/rating_productpage.php'; ?>
        </div>
        <span>&#8369; <?php echo number_format(getProduct($_SESSION['productID'])->price, 2); ?></span>
        <p>  <?php echo getProduct($_SESSION['productID'])->sdescription; ?></p>
@@ -89,7 +88,7 @@
   <!-- Card content -->
   <div class="card-body text-center">
     <div class="">
-     <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/rating.php') ?>
+     <?php include __DIR__.'\partials/rating.php'; ?>
    </div>
 
    <!-- Title -->
@@ -136,4 +135,4 @@
     $('#getproductform-' + id ).submit();
   }
 </script>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>
+<?php include __DIR__.'\partials/footer.php'; ?>

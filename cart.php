@@ -1,7 +1,8 @@
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/PublicController.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/lib/controllers/CartController.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
-<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/top_section.php') ?>
+<?php include __DIR__."\lib\\route\Route.php"; ?>
+<?php include (__DIR__.'\lib/controllers/PublicController.php') ?>
+<?php include (__DIR__.'\lib/controllers/CartController.php') ?>
+<?php include (__DIR__.'\partials/header.php') ?>
+<?php include (__DIR__.'\partials/top_section.php') ?>
 <div class="container mb-5">
   <nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
     <ol class="breadcrumb bg-white d-flex justify-content-center">
@@ -113,4 +114,7 @@
   </script>
 
 
-  <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>
+  <?php include (__DIR__.'\partials/footer.php') ?>
+
+  <!-- Store curren url -->
+<?php $_SESSION['redirect_url'] = Route::current(); ?>

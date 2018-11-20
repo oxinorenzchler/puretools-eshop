@@ -22,8 +22,8 @@
 				</div>
 			</div>
 			<?php else: ?>
-				<a href="" class="btn btn-sm btn-primary">Sign In</a>
-				<a href="" class="btn btn-sm btn-secondary">Register</a>
+				<a href="<?php echo Route::redirect("login.php"); ?>" class="btn btn-sm btn-primary">Sign In</a>
+				<a href="<?php echo Route::redirect("register.php") ?>" class="btn btn-sm btn-secondary">Register</a>
 			<?php endif ?>
 		</div>
 	</div>
