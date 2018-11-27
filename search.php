@@ -1,7 +1,7 @@
-<?php include __DIR__."\lib\\route\Route.php"; ?>
-<?php include __DIR__.'\lib/controllers/SearchController.php'; ?>
-<?php include __DIR__.'\partials/header.php'; ?>
-<?php include __DIR__.'\partials/top_section.php'; ?>
+<?php include "lib/route/Route.php"; ?>
+<?php include 'lib/controllers/SearchController.php'; ?>
+<?php include 'partials/header.php'; ?>
+<?php include 'partials/top_section.php'; ?>
 <?php if (isset($_GET) && !empty($_GET)): ?>
 
 
@@ -96,7 +96,7 @@
                 </div>
                 <!-- Card content -->
                 <div class="card-body text-center">
-                  <?php include __DIR__.'\partials/rating.php'; ?>
+                  <?php include 'ratingnoclick.php'; ?>
                   <!-- Title -->
                   <h6 class="card-title m-0"><a onclick="getProduct(<?php echo $product->id;?>)" class="grey-text"><?php echo $product->name; ?></a></h6>
                   <!-- Text -->
@@ -130,7 +130,7 @@
    <img class='img-fluid d-block mx-auto' src='assets/img/404.png' alt='Page not found.'>
  </div> 
 <?php endif ?>
-<?php include __DIR__.'\partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>
 
 <!-- Store curren url -->
 <?php $_SESSION['redirect_url'] = Route::current(); ?>

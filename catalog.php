@@ -1,7 +1,7 @@
-<?php include __DIR__."\lib\\route\Route.php"; ?>
-<?php include __DIR__.'\lib/controllers/PublicController.php'; ?>
-<?php include __DIR__.'\partials/header.php'; ?>
-<?php include __DIR__.'\partials/top_section.php'; ?>
+<?php include "lib/route/Route.php"; ?>
+<?php include 'lib/controllers/PublicController.php'; ?>
+<?php include 'partials/header.php'; ?>
+<?php include 'partials/top_section.php'; ?>
 
 <div class="container mb-5">
 	<nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
@@ -26,7 +26,7 @@
           <form id="filter-form" method="GET">
             <div class="form-group">
               <label class="d-block filter-subtitle" for="rating-form">Rating <i class="fas fa-star checked"></i><i class="fas fa-star checked"></i><i class="fas fa-star checked"></i><i class="fas fa-star checked"></i><i class="fas fa-star checked"></i></label>
-              <select id="ratingpoints" name="ratingpoints">
+              <select id="ratingpoints" name="ratingpoints" required>
                 <option value="">Select...</option>
                 <option value="5">5 star</option>
                 <option value="4">4 star</option>
@@ -37,7 +37,7 @@
             </div>
             <div class="form-group">
               <label class="d-block filter-subtitle">Category</label>
-              <select name="category" id="category">
+              <select name="category" id="category" required>
                 <option value="">Select...</option>
                 <?php foreach (getCategories() as $category): ?>
                   <option value="<?php echo $category->id; ?>"> <?php echo $category->name; ?></option>
@@ -48,10 +48,10 @@
               <label class="d-block filter-subtitle">Price</label>
               <div class="form-row">
                 <div class="col-lg-6">
-                  <input min="1" type="number" id="minprice" name="minprice" class="form-control mb-2 form-control-sm" placeholder="&#8369; min">
+                  <input min="1" type="number" id="minprice" name="minprice" class="form-control mb-2 form-control-sm" placeholder="&#8369; min" required>
                 </div>
                 <div class="col-lg-6">
-                  <input min="1" type="number" id="maxprice" name="minprice" class="form-control form-control-sm" placeholder="&#8369; max">
+                  <input min="1" type="number" id="maxprice" name="minprice" class="form-control form-control-sm" placeholder="&#8369; max" required>
                 </div>
 
               </div>
@@ -81,7 +81,7 @@
             </div>
             <!-- Card content -->
             <div class="card-body text-center">
-              <?php include __DIR__.'\partials/rating.php'; ?>
+              <?php include 'ratingnoclick.php'; ?>
               <!-- Title -->
               <h6 class="card-title m-0"><a onclick="getProduct(<?php echo $product->id;?>)" class="grey-text"><?php echo $product->name; ?></a></h6>
               <!-- Text -->
@@ -105,7 +105,7 @@
 
 </div>
 
-<?php include __DIR__.'\partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>
 
   <!-- Store curren url -->
 <?php $_SESSION['redirect_url'] = Route::current(); ?>

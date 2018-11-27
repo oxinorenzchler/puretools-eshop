@@ -1,8 +1,8 @@
-<?php include __DIR__."\lib\\route\Route.php"; ?>
-<?php include __DIR__.'\lib/controllers/PublicController.php'; ?>
-<?php include __DIR__.'\lib/controllers/CartController.php'; ?>
-<?php include __DIR__.'\partials/header.php'; ?>
-<?php include __DIR__.'\partials/top_section.php'; ?>
+<?php include "lib/route/Route.php"; ?>
+<?php include 'lib/controllers/PublicController.php'; ?>
+<?php include 'lib/controllers/CartController.php'; ?>
+<?php include 'partials/header.php'; ?>
+<?php include 'partials/top_section.php'; ?>
 
 <div class="container mb-5">
   <?php if (isset($_SESSION['cart'])): ?>
@@ -43,7 +43,8 @@
       <div class="col-md-6">
         <h4>Shipping</h4>
         <div class="border-bottom mb-3"></div>
-        <form action="" method="POST">
+        <!-- Paypal -->
+        <form action="lib/controllers/CheckoutController.php" method="POST">
           <div class="row form-group">
             <div class="col-md-6 mb-3">
               <input type="text" name="firstname" class="form-control" placeholder="First name">
@@ -53,7 +54,7 @@
             </div>
           </div>  
           <div class="form-group">
-            <input type="text" name="address" class="form-control" placeholder="Address">
+            <input type="text" name="delivery_address" class="form-control" placeholder="# St., Building, Municipality..">
           </div>
           <div class="row form-group">
             <div class="col-md-6 mb-3">
@@ -63,20 +64,22 @@
               <input type="number" min="1" name="zip" class="form-control" placeholder="Zip code">
             </div>
           </div>
+          <div class="form-group">
+         <input type="checkbox" name="address" value="0" id="address">
+            <label class="small-text" for="address">Use profile address.</label>
+            
+            </div>
           <h4>Payment</h4>
           <div class="border-bottom mb-3"></div>
-          <div class="form-group">
-            <select class="form-control">
-              <option>COD</option>
-              <option>Paypal</option>
-            </select>
-          </div>
-          <div class="form-group">
-           <?php if (isset($_SESSION['user'])): ?>
-              <button class="btn btn-primary w-100">Place Order</button>
-           <?php endif ?>
-          </div>    
-        </form>
+             
+<input type="hidden" name="cmd" value="_cart">
+<input type="hidden" name="business" value="oxino.renzchler@gmail.com">
+<input type="hidden" name="no_shipping" value="1">
+<input type="hidden" name="upload" value="1">
+<input type="image" src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_cc_171x47.png" class="d-block mx-auto">
+</form>
+        <!-- ./Paypal -->
+
       </div>
     </div>
   </div>
@@ -84,7 +87,7 @@
     <img src="assets/img/404.png" class="img-fluid d-block mx-auto">
   <?php endif ?>
 </div>
-<?php include __DIR__.'\partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>
 
 <!-- Store curren url -->
 <?php $_SESSION['redirect_url'] = Route::current(); ?>

@@ -1,9 +1,7 @@
 <div class="container">
-  <h2 class="text-center text-uppercase title mb-5"><img src="assets/img/svg/fire.png" class="info-icon">What's Hot</h2>
-
   <?php foreach(getCategories() as $category):?>
     <!-- Hand Tools -->
-    <h5 class="h2 mb-3 title text-uppercase"><img src="<?php echo $category->image; ?>" class="info-icon"><?php echo $category->name ?></h5>
+    <h5 class="h2 mb-3"><?php echo $category->name ?></h5>
     <div class="featured-items mb-5">
 
       <?php foreach (getFeatured($category->id) as $product) {?>
@@ -24,7 +22,7 @@
         <!-- Card content -->
         <div class="card-body text-center">
          <!-- Ratings -->
-         <?php include __DIR__.'\rating.php'; ?>
+         <?php include  $_SERVER['DOCUMENT_ROOT'].'/techies/ratingnoclick.php'; ?>
 
          <!-- Title -->
          <h6 class="card-title m-0"><a onclick="getProduct(<?php echo $product->id;?>)" class="grey-text"><?php echo $product->name; ?></a></h6>

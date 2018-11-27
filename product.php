@@ -1,7 +1,7 @@
-<?php include __DIR__."\lib\\route\Route.php"; ?>
-<?php include __DIR__.'\lib/controllers/PublicController.php'; ?>
-<?php include __DIR__.'\partials/header.php'; ?>
-<?php include __DIR__.'\partials/top_section.php'; ?>
+<?php include "lib/route/Route.php"; ?>
+<?php include 'lib/controllers/PublicController.php'; ?>
+<?php include 'partials/header.php'; ?>
+<?php include 'partials/top_section.php'; ?>
 
 <?php if(isset($_SESSION['productID']) && !empty($_GET['product']) && ($_GET['pid'] == $_SESSION['productID'] && $_SESSION['product'] == $_GET['product'])): ?>
 <!-- start -->
@@ -25,7 +25,7 @@
       <div class="col-md-6">
         <h3><?php echo getProduct($_SESSION['productID'])->name; ?></h3>
         <div>
-         <?php include __DIR__.'\partials/rating_productpage.php'; ?>
+         <?php include 'partials/rating_productpage.php'; ?>
        </div>
        <span>&#8369; <?php echo number_format(getProduct($_SESSION['productID'])->price, 2); ?></span>
        <p>  <?php echo getProduct($_SESSION['productID'])->sdescription; ?></p>
@@ -88,7 +88,7 @@
   <!-- Card content -->
   <div class="card-body text-center">
     <div class="">
-     <?php include __DIR__.'\partials/rating.php'; ?>
+     <?php include 'ratingnoclick.php'; ?>
    </div>
 
    <!-- Title -->
@@ -135,4 +135,4 @@
     $('#getproductform-' + id ).submit();
   }
 </script>
-<?php include __DIR__.'\partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>
