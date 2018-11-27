@@ -4,6 +4,10 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+body{
+ font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 	.mobile-link{
@@ -21,78 +25,84 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-	.filter-subtitle{
-    font-size: 0.9em;
+
+  html{
+    font-size: 13px;
   }
+  .filter-subtitle{
+   /* font-size: 0.9em;*/
+ }
 
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {...} 
+@media only screen and (min-width: 992px) {
+  html{
+    font-size: 12px;
+  }
+} 
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+  html{
+    font-size: 12px;
+  }
   .filter-title{
-    font-size: 1.5em;
+    /*font-size: 1.5em;*/
   }
   #profile-avatar{
     margin-left: auto;
   }
 }
-.info-icon{
-	object-fit: contain;
-	height: 50px;
-	width: 50px;
-}
-.title{
-	text-decoration: underline;
-	font-weight: 300 !important;
-}
 .card-img-top{
-		min-height: 150px !important;
-		max-height: 150px !important;
-		object-fit: contain !important;
-	}
+  min-height: 150px !important;
+  max-height: 150px !important;
+  object-fit: contain !important;
+}
 
-	.slick-prev:before,
+.slick-prev:before,
 .slick-next:before {
   color: #2196F3;
 }
-	   /* the slides */
-  .slick-slide {
-    margin: 0 10px;
-  }
-  /* the parent */
-  .slick-list {
-    margin: 0 -10px;
-  }
+/* the slides */
+.slick-slide {
+  margin: 0 10px;
+}
+/* the parent */
+.slick-list {
+  margin: 0 -10px;
+}
 
-  img{
-  	object-fit: contain !important;
-  }
+img{
+ object-fit: contain !important;
+}
 
-
-  .page{
-  	background-color: #3062B3 !important;
-  	color: white;
-  	margin-right: 5px;
-  	padding: 5px 10px;
-  	border-radius: 5px;
-  }
-  .page:hover{
-  	color: orange;
-  }
+.info-icon{
+  object-fit: contain;
+  width: 40px;
+  height: 40px;
+}
+.page{
+ background-color: #3062B3 !important;
+ color: white;
+ margin-right: 5px;
+ padding: 5px 10px;
+ border-radius: 5px;
+}
+.page:hover{
+ color: orange;
+}
 
 .fa-star{
-  font-size: 0.7em;
+  font-size: 0.5em !important;
 }
 .checked{
-    color: orange;
+  color: orange;
 }
 
 .fa-star:hover{
 	cursor: pointer !important;
 }
 .table-wrapper{
-   overflow-x: auto !important;
+ overflow-x: auto !important;
 }

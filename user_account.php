@@ -1,6 +1,6 @@
-<?php include __DIR__.'\lib/controllers/PublicController.php'; ?>
-<?php include __DIR__.'\partials/header.php'; ?>
-<?php include __DIR__.'\partials/top_section.php'; ?>
+<?php include 'lib/controllers/PublicController.php'; ?>
+<?php include 'partials/header.php'; ?>
+<?php include 'partials/top_section.php'; ?>
 
 <div class="container mb-5">
 	<nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
@@ -87,9 +87,14 @@
     </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/edit_account.php') ?>
     <?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/footer.php') ?>
 =======
     <?php include __DIR__.'\partials/edit_account.php'; ?>
     <?php include __DIR__.'\partials/footer.php'; ?>
+>>>>>>> dev
+=======
+    <?php include 'partials/edit_account.php'; ?>
+    <?php include 'partials/footer.php'; ?>
 >>>>>>> dev

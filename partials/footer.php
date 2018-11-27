@@ -1,5 +1,5 @@
   <!-- Footer -->
-  <footer class="page-footer font-small blue pt-4">
+  <footer class="page-footer font-small special-color pt-4">
 
   	<!-- Footer Links -->
   	<div class="container-fluid text-center text-md-left">
@@ -9,15 +9,6 @@
 
   			<!-- Grid column -->
   			<div class="col-md-6 mt-md-0 mt-3">
-
-  				<!-- Content -->
-  				<h5 class="text-uppercase">Join Our Newsletter</h5>
-  				<!-- Form -->
-  				<form class="form-inline mb-3">
-  					<input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search">
-  				</form>
-  				<!-- Form -->
-
   				<p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
   					<a rel="license"
   					href="http://creativecommons.org/publicdomain/zero/1.0/">
@@ -42,25 +33,6 @@
 
   	<!-- Grid column -->
   	<div class="col-md-3 mb-md-0 mb-3">
-
-  		<!-- Links -->
-  		<h5 class="text-uppercase">Links</h5>
-
-  		<ul class="list-unstyled">
-  			<li>
-  				<a href="#!">Link 1</a>
-  			</li>
-  			<li>
-  				<a href="#!">Link 2</a>
-  			</li>
-  			<li>
-  				<a href="#!">Link 3</a>
-  			</li>
-  			<li>
-  				<a href="#!">Link 4</a>
-  			</li>
-  		</ul>
-
   	</div>
   	<!-- Grid column -->
 
@@ -68,20 +40,17 @@
   	<div class="col-md-3 mb-md-0 mb-3">
 
   		<!-- Links -->
-  		<h5 class="text-uppercase">Links</h5>
+  		<h5 class="text-uppercase">Social Links</h5>
 
   		<ul class="list-unstyled">
   			<li>
-  				<a href="#!">Link 1</a>
+  				<a href="#!">Facebook</a>
   			</li>
   			<li>
-  				<a href="#!">Link 2</a>
+  				<a href="#!">Twitter</a>
   			</li>
   			<li>
-  				<a href="#!">Link 3</a>
-  			</li>
-  			<li>
-  				<a href="#!">Link 4</a>
+  				<a href="#!">Instagram</a>
   			</li>
   		</ul>
 

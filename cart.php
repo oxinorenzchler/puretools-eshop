@@ -1,8 +1,8 @@
-<?php include __DIR__."\lib\\route\Route.php"; ?>
-<?php include (__DIR__.'\lib/controllers/PublicController.php') ?>
-<?php include (__DIR__.'\lib/controllers/CartController.php') ?>
-<?php include (__DIR__.'\partials/header.php') ?>
-<?php include (__DIR__.'\partials/top_section.php') ?>
+<?php include "lib/route/Route.php"; ?>
+<?php include 'lib/controllers/PublicController.php'; ?>
+<?php include 'lib/controllers/CartController.php'; ?>
+<?php include 'partials/header.php'; ?>
+<?php include 'partials/top_section.php'; ?>
 <div class="container mb-5">
   <nav aria-label="breadcrumb" class="mb-3 d-none d-md-block d-lg-block">
     <ol class="breadcrumb bg-white d-flex justify-content-center">
@@ -48,7 +48,7 @@
         <input type="hidden" id="total-input" value="<?php echo $_SESSION['total']; ?>">
       </div>
       <a href="catalog.php" class="btn btn-sm btn-primary">Continue Shopping</a>
-      <a href="lib/controllers/CartController.php?checkout=true&uid=<?php echo md5(1); ?>" class="btn btn-sm btn-success">Checkout</a>
+      <a href="lib/controllers/CartController.php?checkout=<?php echo true; ?>" class="btn btn-sm btn-success">Checkout</a>
       <?php else: ?>
         <img src="assets/img/emptycart.png" class="img-fluid d-block mx-auto">
       <?php endif ?>
@@ -114,7 +114,7 @@
   </script>
 
 
-  <?php include (__DIR__.'\partials/footer.php') ?>
+  <?php include 'partials/footer.php'; ?>
 
   <!-- Store curren url -->
 <?php $_SESSION['redirect_url'] = Route::current(); ?>

@@ -1,39 +1,40 @@
-<!-- Top section -->
-<div class="container-fluid bg-success pt-2 pb-2">
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6 text-center">
-			Sale of 50% off everything shop sitewide sale
-		</div>
-		<div class="col-md-3 text-center d-md-block d-none">
-			<?php if (isset($_SESSION['user'])): ?>
-				<div class="btn-group">
-					<button type="button" class="btn btn-danger btn-sm">
-					<?php echo $_SESSION['user']->name; ?>	
-					</button>
-					<button type="button" class="btn btn-danger btn-sm dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">
-					<span class="sr-only">Toggle Dropdown</span>
+<div class="d-flex justify-content-end container-fluid special-color">
+	<?php if (isset($_SESSION['user'])): ?>
+				<div class="btn-group pt-2">
+					<a class="white-text" data-toggle="dropdown">
+					Hello, 	
+					<?php echo $_SESSION['user']->name; ?>
+					<span class="fas fa-caret-down"></span>	
+					</a>
+
 				</button>
-				<div class="dropdown-menu">
+				<div class="dropdown-menu mr-5">
 					<a class="dropdown-item small" href="user_account.php">My account</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item small" href="lib/controllers/LogoutController.php">Logout</a>
 				</div>
 			</div>
 			<?php else: ?>
-				<a href="<?php echo Route::redirect("login.php"); ?>" class="btn btn-sm btn-primary">Sign In</a>
-				<a href="<?php echo Route::redirect("register.php") ?>" class="btn btn-sm btn-secondary">Register</a>
+				<div class="justify-content-end d-flex pt-2">
+				<a href="<?php echo Route::redirect("login.php"); ?>" class="mr-2 white-text">Sign In</a>
+				<a href="<?php echo Route::redirect("register.php") ?>" class="white-text">Register</a>
+				</div>
 			<?php endif ?>
-		</div>
-	</div>
-</div>
+</div>	
 <!-- Brand, search and cart section -->
-<div class="d-flex justify-content-between p-4 align-items-end mb-3">
-	<a href="index.php">
-		<img src="assets/img/demo.jpg">
+<div class="d-flex justify-content-between align-items-end pr-4 pl-4 special-color white-text">
+	<a href="index.php" class="">
+		<img src="assets/img/demo.jpg" height="" width="">
+			<a href="cart.php" class="white-text d-sm-block d-md-none">
+			<i class="fas fa-shopping-cart"></i> Cart 
+			<sup id="cart-count">
+				<?php if(isset($_SESSION['cart_count'])): ?>
+					<?php echo $_SESSION['cart_count']; ?> 
+				<?php endif ?>
+			</sup>
+		</a>
 	</a>
-	<form class="d-none d-md-block d-lg-block" method="GET" action="lib/controllers/SearchController.php">
+	<form class="d-none d-md-block d-lg-block pb-3" method="GET" action="lib/controllers/SearchController.php">
 		<input type="hidden" name="search">
 		<div class="input-group">
 			<div class="input-group-prepend">
@@ -48,9 +49,14 @@
 		</div>
 	</form>
 	<ul class="list-inline d-none d-md-block d-lg-block">
+<<<<<<< HEAD
 		<li class="list-inline-item"><i class="fas fa-headset"></i> Contact Us</li>
 
 		<li class="list-inline-item"><a href="cart.php">
+=======
+		<li class="list-inline-item"><i class="fas fa-headset"></i> <a href="contact.php" class="white-text">Contact Us</a></li>
+		<li class="list-inline-item"><a href="cart.php" class="white-text">
+>>>>>>> dev
 			<i class="fas fa-shopping-cart"></i> Cart 
 
 			<sup id="cart-count">
@@ -66,7 +72,7 @@
 </div>
 
 <!-- Navbar -->
-<div class="bg-primary">
+<div class="orange mb-5">
 	<div class="container">
 		<nav class="navbar navbar-expand-md navbar-dark shadow-none">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
@@ -95,21 +101,6 @@
 				<li class="nav-item d-none mobile-link">
 					<a href="contact.php" class="nav-link">Contact Us</a>
 				</li>
-				<?php if (isset($_SESSION['user'])): ?>
-				<li class="nav-item d-none mobile-link">
-					<a href="" class="nav-link">My Account</a>
-				</li>
-				<li class="nav-item d-none mobile-link">
-					<a class="nav-link" href="lib/controllers/LogoutController.php">Logout</a>
-				</li>
-				<?php else: ?>
-				<li class="nav-item d-none mobile-link">
-					<a href="" class="nav-link">Login</a>
-				</li>
-				<li class="nav-item d-none mobile-link">
-					<a href="" class="nav-link">Register</a>
-				</li>
-				<?php endif ?>
 			</ul>
 		</div>
 	</nav>

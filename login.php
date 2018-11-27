@@ -1,7 +1,7 @@
 
 <?php session_start(); ?>
 <div class="container mt-5 mb-5">
-	<?php include ($_SERVER['DOCUMENT_ROOT'].'/techies/partials/header.php') ?>
+	<?php include 'partials/header.php'; ?>
 	<div class="container mt-5 mb-5">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">

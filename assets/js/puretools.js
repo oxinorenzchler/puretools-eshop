@@ -111,3 +111,22 @@ function submitFilter(){
   }
 
 }
+
+$('#address').on('change',function(){
+  if($(this).is(":checked")){
+    $('input[name="firstname"]').attr("disabled",true);
+    $('input[name="lastname"]').attr("disabled",true);
+    $('input[name="delivery_address"]').attr("disabled",true);
+    $('input[name="city"]').attr("disabled",true);
+    $('input[name="zip').attr("disabled",true);
+    $(this).val(1);
+  }else{
+    $('input[name="firstname"]').attr("disabled",false);
+    $('input[name="lastname"]').attr("disabled",false);
+    $('input[name="delivery_address"]').attr("disabled",false);
+    $('input[name="city"]').attr("disabled",false);
+    $('input[name="zip').attr("disabled",false);
+    $(this).val(0);
+
+  }
+});
